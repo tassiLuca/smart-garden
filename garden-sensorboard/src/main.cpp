@@ -1,9 +1,18 @@
 #include <Arduino.h>
+#include "./setup.h"
+#include "./boundary/Led.h"
+#include "./test.h"
+
+Light* led;
+Test test;
+
+void testBoundary();
 
 void setup() {
-  // put your setup code here, to run once:
+    Serial.begin(9600);
+    led = new Led(PIN_LED);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+    test.testLed(led);
 }
