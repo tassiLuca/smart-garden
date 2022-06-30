@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include "./setup.h"
-#include "./boundary/Led.h"
+#include "./boundary/light/Led.h"
 #include "./test.h"
 
 Light* led;

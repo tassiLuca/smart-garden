@@ -1,7 +1,7 @@
 #ifndef __TEST_H__
 #define __TEST_H__
 
-#include "./boundary/Light.h"
+#include "./boundary/light/Light.h"
 
 class Test {
 
