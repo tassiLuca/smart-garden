@@ -3,6 +3,8 @@
 
 #define SSID "TIM-31170947"
 #define PWD "m0d3mT4ss1n4r1"
+#define TOPIC "esiot-smart-garden"
+#define MQTT_SERVER "broker.mqtt-dashboard.com"
 
 #define PIN_LED 25
 #define PHOTORESISTOR_PIN 34
