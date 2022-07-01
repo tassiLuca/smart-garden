@@ -2,23 +2,19 @@
 #include "GardenController.h"
 #include "communication/MQTTCommComponent.h"
 #include "../setup.h"
-
-static void log(String msg) {
-    Serial.println("[GARDEN CONTROLLER] " + msg);
-}
+#include "../uilities/Logger.h"
 
 GardenController::GardenController() {
-    log("Init controller");
     this->comm = new MQTTCommComponent();
     this->comm->estabilishCommChannel(SSID, PWD);
 }
 
 void GardenController::run() {
-    log("start running");
+    Logger::getLogger()->log("start running");
     // perceiveData()
     // wrapDataToJson()
     // sendData
-    log("end running");
+    Logger::getLogger()->log("end running");
 }
 
 void GardenController::perceiveData() {

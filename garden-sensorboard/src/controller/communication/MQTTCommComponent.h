@@ -6,7 +6,10 @@
 class MQTTCommComponent: public CommunicationComponent {
 
 public:
-    bool estabilishCommChannel(const char* ssid, const char* pwd) override;
+    /**
+     * [NOTE] This is blocking!
+     */
+    void estabilishCommChannel(const char* ssid, const char* pwd) override;
 
 };
 

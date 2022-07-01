@@ -1,18 +1,18 @@
 #include <Arduino.h>
 #include <WiFi.h>
+#include "../../uilities/Logger.h"
 #include "MQTTCommComponent.h"
 
 static void log(String msg) {
     Serial.println("[MQTT] " + msg);
 }
 
-bool MQTTCommComponent::estabilishCommChannel(const char* ssid, const char* pwd) {
-    log("Estabilishing a connection");
+void MQTTCommComponent::estabilishCommChannel(const char* ssid, const char* pwd) {
+    Logger::getLogger()->log("establishing wifi-connection");
     WiFi.mode(WIFI_STA);
     WiFi.begin(ssid, pwd);
-    while(WiFi.status() != WL_CONNECTED) {
-        log("nope");
-    }
-    log("established");
-    return false;
+    while(WiFi.status() != WL_CONNECTED) { }
+
+    Logger::getLogger()->log("wifi-connection OK: IP Address is " + WiFi.localIP().toString());
 }
+

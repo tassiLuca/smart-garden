@@ -4,7 +4,7 @@
 class CommunicationComponent {
 
 public:
-    virtual bool estabilishCommChannel(const char* ssid, const char* pwd) = 0;
+    virtual void estabilishCommChannel(const char* ssid, const char* pwd) = 0;
     // bool sendData();
 
 };

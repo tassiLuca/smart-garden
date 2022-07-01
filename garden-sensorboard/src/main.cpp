@@ -4,7 +4,6 @@
 MainController* controller;
 
 void setup() {
-    Serial.begin(9600);
     controller = new GardenController();
 }
 
