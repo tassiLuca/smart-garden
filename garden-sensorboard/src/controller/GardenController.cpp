@@ -5,26 +5,18 @@
 #include "../uilities/Logger.h"
 
 GardenController::GardenController() {
-    this->comm = new MQTTCommComponent();
-    this->comm->estabilishCommChannel(SSID, PWD, "broker.mqtt-dashboard.com");
+    this->comm = new MQTTCommComponent(SSID, PWD, MQTT_SERVER, TOPIC);
+    this->comm->estabilishCommChannel();
 }
 
 void GardenController::run() {
-    Logger::getLogger()->log("start running");
-    // perceiveData()
-    // wrapDataToJson()
-    // sendData
-    Logger::getLogger()->log("end running");
+    this->comm->sendData("hello world smart-garden");
 }
 
 void GardenController::perceiveData() {
-
-}
-
-DynamicJsonDocument GardenController::wrapDataToJson() {
-
+    // TODO
 }
 
 void GardenController::sendData() {
-
+    // TODO
 }

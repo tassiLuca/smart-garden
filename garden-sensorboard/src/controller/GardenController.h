@@ -10,7 +10,6 @@ class GardenController: public MainController {
 private:
     CommunicationComponent* comm;
     void perceiveData();
-    DynamicJsonDocument wrapDataToJson();
     void sendData();
 
 public:
