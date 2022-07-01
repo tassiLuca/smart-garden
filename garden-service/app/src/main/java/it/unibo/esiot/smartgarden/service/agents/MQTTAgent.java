@@ -10,7 +10,7 @@ import io.vertx.mqtt.MqttClient;
  */
 public class MQTTAgent extends AbstractVerticle {
 
-	private static final String TOPIC = "esiot-2122";
+	private static final String TOPIC = "esiot-smart-garden";
 	
 	public MQTTAgent() { }
 
