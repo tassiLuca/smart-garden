@@ -1,18 +1,14 @@
 #include <Arduino.h>
-#include "./setup.h"
-#include "./boundary/light/Led.h"
-#include "./test.h"
+#include "./controller/GardenController.h"
 
-Light* led;
-Test test;
-
-void testBoundary();
+MainController* controller;
 
 void setup() {
     Serial.begin(9600);
-    led = new Led(PIN_LED);
+    controller = new GardenController();
 }
 
-void loop() {
-    test.testLed(led);
+void loop() { 
+    controller->run();
+    delay(1000);
 }
