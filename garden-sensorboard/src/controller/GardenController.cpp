@@ -6,7 +6,7 @@
 
 GardenController::GardenController() {
     this->comm = new MQTTCommComponent();
-    this->comm->estabilishCommChannel(SSID, PWD);
+    this->comm->estabilishCommChannel(SSID, PWD, "broker.mqtt-dashboard.com");
 }
 
 void GardenController::run() {
