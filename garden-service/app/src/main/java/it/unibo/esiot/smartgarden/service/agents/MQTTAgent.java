@@ -25,9 +25,6 @@ public class MQTTAgent extends AbstractVerticle {
 				System.out.println("Content(as string) of the message: " + s.payload().toString());
 				System.out.println("QoS: " + s.qosLevel());
 			}).subscribe(TOPIC, 2);
-
-			log("publishing a msg");
-			client.publish(TOPIC, Buffer.buffer("hello"), MqttQoS.AT_LEAST_ONCE, false, false);
 		});
 	}
 

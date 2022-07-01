@@ -20,10 +20,6 @@ public interface SmartGarden {
         }
     }
 
-    /**
-     * Get the state of the garden.
-     * @return the {@link GardenState}
-     */
     public String getState();
 
     public void changeState(final GardenState newState);

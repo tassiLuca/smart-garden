@@ -9,7 +9,7 @@ public class App {
     public static void main(String[] args) {
         Vertx vertx = Vertx.vertx();
         MQTTAgent agent = new MQTTAgent();
-        HTTPAgent service = new HTTPAgent(8080);
+        HTTPAgent service = new HTTPAgent(80);
         vertx.deployVerticle(agent);
         vertx.deployVerticle(service);
     }
