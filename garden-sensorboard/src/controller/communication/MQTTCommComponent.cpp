@@ -29,13 +29,10 @@ void MQTTCommComponent::connectToMQTTServer() {
     while (!client.connected()) {
         Logger::getLogger()->log("Attempting MQTT connection...");
         String clientId = String("esiot-2122-client-")+String(random(0xffff), HEX);
-        // Attempt to connect
         if (client.connect(clientId.c_str())) {
-            Logger::getLogger()->log("MQTT connected...");
+            Logger::getLogger()->log("MQTT connected");
         } else {
             Logger::getLogger()->log("Failed, rc=" + String(client.state()));
-            // Wait 5 seconds before retrying
-            delay(5000);
         }
     }
 }
@@ -48,4 +45,3 @@ bool MQTTCommComponent::sendData(const char* msg) {
         return false;
     }
 }
-
