@@ -9,5 +9,5 @@ void setup() {
 
 void loop() { 
     controller->run();
-    delay(1000);
+    delay(2000);
 }
