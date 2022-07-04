@@ -9,6 +9,8 @@ public:
 
     virtual void setIrrigationSpeed(const int speed) = 0;
 
+    virtual bool isActive() = 0;
+
 };
 
 #endif

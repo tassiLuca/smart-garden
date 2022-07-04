@@ -11,6 +11,11 @@ public:
 
     void setIrrigationSpeed(const int speed) override;
 
+    bool isActive() override;
+
+private:
+    bool active;
+
 };
 
 #endif

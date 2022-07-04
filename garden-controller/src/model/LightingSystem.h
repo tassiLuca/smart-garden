@@ -8,6 +8,8 @@ public:
 
     virtual void deactivate() = 0;
 
+    virtual bool isActive() = 0;
+
 };
 
 #endif

@@ -10,6 +10,11 @@ public:
 
     void deactivate() override;
 
+    bool isActive() override;
+
+private:
+    bool active;
+
 };
 
 #endif
