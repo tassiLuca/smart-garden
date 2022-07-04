@@ -7,7 +7,7 @@ class AutoState: public State {
 
 public:
     void handle() override;
-    void checkTransitions() override;
+    void checkTransitions(int temperatureLevel, int lightnessLevel);
 
 };
 

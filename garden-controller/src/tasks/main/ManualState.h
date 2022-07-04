@@ -7,7 +7,6 @@ class ManualState: public State {
 
 public:
     void handle() override;
-    void checkTransitions() override;
 
 };
 

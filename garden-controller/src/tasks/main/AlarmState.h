@@ -7,7 +7,6 @@ class AlarmState: public State {
 
 public:
     void handle() override;
-    void checkTransitions() override;
 
 };
 

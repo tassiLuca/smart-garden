@@ -63,11 +63,6 @@ public:
      */
     virtual void handle() = 0;
 
-    /**
-     * @brief Checks if the guard transition conditions are verified.
-     */
-    virtual void checkTransitions() = 0;
-
 };
 
 #endif
