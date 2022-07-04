@@ -31,6 +31,9 @@ dependencies {
 
     // SL4J
     implementation("org.slf4j:slf4j-api:2.0.0-alpha7")
+
+    // jssc
+    implementation("io.github.java-native:jssc:2.9.4")
 }
 
 application {

@@ -1,19 +1,15 @@
-package esiot.module_lab_2_2;
-
-import java.io.IOException;
+package it.unibo.esiot.smartgarden.service.commchannel;
 
 import jssc.*;
 
 public class ShowSerialPorts {
 
 	public static void main(String[] args) {
-		
 		/* detect serial ports */
 		String[] portNames = SerialPortList.getPortNames();
-		for (int i = 0; i < portNames.length; i++){
-		    System.out.println(portNames[i]);
+		for (String portName : portNames) {
+			System.out.println(portName);
 		}
-
 	}
 
 }
