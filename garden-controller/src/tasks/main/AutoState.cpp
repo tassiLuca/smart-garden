@@ -1,18 +1,30 @@
 #include "AutoState.h"
 #include "../../uilities/Logger.h"
 #include "../../serialcomm/MsgService.h"
+#include "AlarmState.h"
+
+#include <ArduinoJson.h>
+
+#define MAX_TEMP_LEVEL 5
 
 void AutoState::handle() {
-    Logger::getLogger()->log("AUTO STATE");
+    StaticJsonDocument<256> doc;
     if (MsgService.isMsgAvailable()) {
         Msg* msg = MsgService.receiveMsg();
-        Logger::getLogger()->log("New message " + msg->getContent());
+        deserializeJson(doc, msg->getContent());
+        if (doc["action"] == "add-data") {
+            int temperatureLevel = doc["data"]["temperature"];
+            int lightnessLevel = doc["data"]["lightness"];
+            checkTransitions(temperatureLevel, lightnessLevel);
+        } else if (doc["action"] == "change-state") {
+            
+        }
         delete msg;
     }
+}
 
-
-    // se è stato ricevuto un nuovo messaggio
-    //      verifica se condizioni di allarme o manual mode
-    //      se **non** condizione di allarme
-    //          attiva gli altri due task
+void AutoState::checkTransitions(int temperatureLevel, int lightnessLevel) {
+    if (temperatureLevel >= MAX_TEMP_LEVEL /* && irrigationSystem is in pause */) {
+        this->getTask()->stateTransition(new AlarmState());
+    }
 }
