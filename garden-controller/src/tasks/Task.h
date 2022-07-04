@@ -1,6 +1,8 @@
 #ifndef __TASK__
 #define __TASK__
 
+#include "../model/SmartGardenImpl.h"
+
 class State;
 
 /**

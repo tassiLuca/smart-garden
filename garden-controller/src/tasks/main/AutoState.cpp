@@ -24,7 +24,9 @@ void AutoState::handle() {
 }
 
 void AutoState::checkTransitions(int temperatureLevel, int lightnessLevel) {
-    if (temperatureLevel >= MAX_TEMP_LEVEL /* && irrigationSystem is in pause */) {
+    if (temperatureLevel >= MAX_TEMP_LEVEL && SmartGarden.getIrrigationSystem()->isActive()) {
         this->getTask()->stateTransition(new AlarmState());
+    } else {
+        
     }
 }
