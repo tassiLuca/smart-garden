@@ -14,7 +14,7 @@ void Scheduler::schedule() {
     timer.waitForNextTick();
     std::list<Task*>::iterator task;
     for (task = activeTasks.begin(); task != activeTasks.end(); task++) {
-        if ((*task)->updateAndCheckTime(basePeriod)) {
+        if ((*task)->isActive() && (*task)->updateAndCheckTime(basePeriod)) {
             (*task)->execute();
         }
     }
