@@ -1,6 +1,7 @@
 #ifndef __ASYNC_FSM__
 #define __ASYNC_FSM__
 
+#include <Arduino.h>
 #include <queue>
 #include "Observer.h"
 
@@ -15,7 +16,8 @@ class AsyncFSM: public Observer {
 
 public:
     virtual void handleEvent(Event* event) = 0;
-    void notifyEvent(Event* event) override;
+    virtual String getId() = 0;
+    void notifyEvent(Event* event);
     void checkEvents();
 
 protected:

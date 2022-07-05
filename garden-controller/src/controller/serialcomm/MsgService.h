@@ -2,6 +2,8 @@
 #define __MSGSERVICE__
 
 #include <Arduino.h>
+#include "../events/AbstractEventSource.h"
+#include "../events/Event.h"
 
 class Msg {
 
@@ -19,30 +21,12 @@ private:
 
 };
 
-class Pattern {
-
-public:
-    virtual boolean match(const Msg& m) = 0;  
-
-};
-
-class MsgServiceClass {
+class MsgServiceClass: public AbstractEventSource {
     
-public: 
-    Msg* currentMsg;
-    bool msgAvailable;
+public:
+    void init();
+    void onMsgArrived(String msg);
 
-    void init();  
-
-    bool isMsgAvailable();
-    Msg* receiveMsg();
-
-    bool isMsgAvailable(Pattern& pattern);
-
-    /* note: message deallocation is responsibility of the client */
-    Msg* receiveMsg(Pattern& pattern);
-  
-    void sendMsg(const String& msg);
 };
 
 extern MsgServiceClass MsgService;

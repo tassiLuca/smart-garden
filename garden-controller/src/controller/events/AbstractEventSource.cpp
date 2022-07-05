@@ -10,3 +10,7 @@ void AbstractEventSource::generateEvent(Event* event) {
         (*ob)->notifyEvent(event);
     }
 }
+
+std::list<Observer*> AbstractEventSource::getObservers() {
+    return observers;
+}

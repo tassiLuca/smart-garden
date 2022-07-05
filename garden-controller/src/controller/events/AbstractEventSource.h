@@ -10,6 +10,7 @@ class AbstractEventSource: public EventSource {
 public:
     void registerObserver(Observer* observer) override;
     void generateEvent(Event* event) override;
+    std::list<Observer*> getObservers() override;
 
 private:
     std::list<Observer*> observers;

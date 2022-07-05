@@ -10,6 +10,7 @@ class Observer {
 
 public:
     virtual void notifyEvent(Event* event) = 0;
+    virtual String getId() = 0;
 
 };
 
