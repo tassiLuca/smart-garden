@@ -1,19 +1,47 @@
 #include "MainAsyncFSM.h"
+#include <ArduinoJson.h>
+#include "../../uilities/Logger.h"
+
+#define ALARM_TEMPERATURE_THRESHOLD 5
 
 MainAsyncFSM::MainAsyncFSM() {
+    currentState = AUTO;
     MsgService.init();
     MsgService.registerObserver(this);
 }
 
 void MainAsyncFSM::handleEvent(Event* event) {
-    if (event->getType() == NEW_DATA_EVENT) {
-        // check parameters in order to establish if alarm mode must be activated
-        // else activate other 2 FSM
-    } else {
-        // change actual state
-        // manual mode => 
+    switch(currentState) {
+        case AUTO:
+            autoBehaviour(event);
+            break;
+        case MANUAL:
+            break;
+        case ALARM:
+            break;
+        default:
+            Logger::getLogger()->log("ERROR: not ammissible event");
+            break;
     }
-    // send over serial to the service the actual state
+}
+
+void MainAsyncFSM::autoBehaviour(Event* event) {
+    if (event->getType() == NEW_DATA_EVENT) { // new data from service
+        checkTransitions(event->getData());
+    } else { // state transition to MANUAL
+    }
+}
+
+void MainAsyncFSM::checkTransitions(String data) {
+    StaticJsonDocument<256> doc;
+    deserializeJson(doc, data);
+    int tempLevel = doc["data"]["temperature"];
+    int lightLevel = doc["data"]["ligtness"];
+    if (tempLevel >= ALARM_TEMPERATURE_THRESHOLD) {
+        currentState = ALARM;
+    } else {
+        // activate other tasks
+    }
 }
 
 String MainAsyncFSM::getId() {

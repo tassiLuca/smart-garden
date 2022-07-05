@@ -15,7 +15,6 @@ void LightingSystemImpl::setIntensity(int brightnessLevel) {
 }
 
 void LightingSystemImpl::activate() {
-    Logger::getLogger()->log("ACTIVATING");
     int i;
     for (i = 0; i < 2; i++) {
         lights[i]->switchOn();

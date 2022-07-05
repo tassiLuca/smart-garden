@@ -15,7 +15,6 @@ void IrrigationSystemImpl::moveServo() {
         angle = 0;
     }
     angle += speed;
-    Logger::getLogger()->log("Pos: " + String(angle));
     servo->setPosition(angle);
 }
 

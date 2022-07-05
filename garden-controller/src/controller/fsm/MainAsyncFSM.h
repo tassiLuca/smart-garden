@@ -9,13 +9,15 @@ class MainAsyncFSM: public AsyncFSM {
 
 public:
     MainAsyncFSM();
-
     void handleEvent(Event* event) override;
-
-    String getId();
+    String getId() override;
 
 private:
-    
+    void autoBehaviour(Event* event);
+    //void alarmBehaviour(Event* event);
+    //void manualBehaviour(Event* event);
+    void checkTransitions(String data);
+    enum {AUTO, MANUAL, ALARM} currentState;
 
 };
 
