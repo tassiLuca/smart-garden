@@ -1,9 +1,8 @@
 package it.unibo.esiot.smartgarden.service.agents;
 
-import io.netty.handler.codec.mqtt.MqttQoS;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.buffer.Buffer;
 import io.vertx.mqtt.MqttClient;
+import it.unibo.esiot.smartgarden.service.commchannel.CommChannel;
 
 /*
  * MQTT Agent
@@ -11,8 +10,11 @@ import io.vertx.mqtt.MqttClient;
 public class MQTTAgent extends AbstractVerticle {
 
 	private static final String TOPIC = "esiot-smart-garden";
+	private CommChannel channel;
 	
-	public MQTTAgent() { }
+	public MQTTAgent(CommChannel channel) {
+		this.channel = channel;
+	}
 
 	@Override
 	public void start() {		
@@ -21,9 +23,12 @@ public class MQTTAgent extends AbstractVerticle {
 			log("connected");
 			log("subscribing...");
 			client.publishHandler(s -> {
+				final String receivedMsg = s.payload().toString();
 				System.out.println("There are new message in topic: " + s.topicName());
-				System.out.println("Content(as string) of the message: " + s.payload().toString());
-				System.out.println("QoS: " + s.qosLevel());
+				System.out.println("Content(as string) of the message: " + receivedMsg);
+				// System.out.println("QoS: " + s.qosLevel());
+				System.out.println("Sending to Arduino the received data");
+				channel.sendMsg(receivedMsg);
 			}).subscribe(TOPIC, 2);
 		});
 	}
