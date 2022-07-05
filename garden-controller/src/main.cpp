@@ -1,9 +1,13 @@
 #include <Arduino.h>
 
+#include "controller/fsm/MainAsyncFSM.h"
+
+AsyncFSM* mainFSM;
+
 void setup() {
-  // put your setup code here, to run once:
+    mainFSM = new MainAsyncFSM();
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+    mainFSM->checkEvents();
 }

@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include "MsgService.h"
 
 String content;
@@ -12,10 +11,7 @@ void MsgServiceClass::init() {
 }
 
 void MsgServiceClass::onMsgArrived(String msg) {
-    //digitalWrite(7, HIGH);
     this->generateEvent(new NewDataEvent());
-    //delay(500);
-    //digitalWrite(7, LOW);
 }
 
 void serialEvent() {

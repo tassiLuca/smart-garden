@@ -8,20 +8,11 @@
 class MainAsyncFSM: public AsyncFSM {
 
 public:
-    MainAsyncFSM() {
-        MsgService.init();
-        MsgService.registerObserver(this);
-    } 
+    MainAsyncFSM();
 
-    void handleEvent(Event* event) override {
-        digitalWrite(8, HIGH);
-        delay(500);
-        digitalWrite(8, LOW);
-    }
+    void handleEvent(Event* event) override;
 
-    String getId() {
-        return "MAIN-FSM";
-    }
+    String getId();
 
 };
 

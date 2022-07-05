@@ -1,6 +1,7 @@
 #ifndef __OBSERVER__
 #define __OBSERVER__
 
+#include <Arduino.h>
 #include "events/Event.h"
 
 /**
