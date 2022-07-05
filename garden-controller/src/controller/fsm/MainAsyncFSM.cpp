@@ -1,49 +1,36 @@
 #include "MainAsyncFSM.h"
+#include "../serialcomm/MsgService.h"
 #include <ArduinoJson.h>
-#include "../../uilities/Logger.h"
 
-#define ALARM_TEMPERATURE_THRESHOLD 5
+#define ALARM_THRESHOLD 5
 
 MainAsyncFSM::MainAsyncFSM() {
-    currentState = AUTO;
     MsgService.init();
     MsgService.registerObserver(this);
 }
 
 void MainAsyncFSM::handleEvent(Event* event) {
-    switch(currentState) {
-        case AUTO:
-            autoBehaviour(event);
-            break;
-        case MANUAL:
-            break;
-        case ALARM:
-            break;
-        default:
-            Logger::getLogger()->log("ERROR: not ammissible event");
-            break;
-    }
+    autoHandle(event->getData());
 }
 
-void MainAsyncFSM::autoBehaviour(Event* event) {
-    if (event->getType() == NEW_DATA_EVENT) { // new data from service
-        checkTransitions(event->getData());
-    } else { // state transition to MANUAL
-    }
-}
-
-void MainAsyncFSM::checkTransitions(String data) {
+void MainAsyncFSM::autoHandle(String data) {
     StaticJsonDocument<256> doc;
     deserializeJson(doc, data);
-    int tempLevel = doc["data"]["temperature"];
-    int lightLevel = doc["data"]["ligtness"];
-    if (tempLevel >= ALARM_TEMPERATURE_THRESHOLD) {
-        currentState = ALARM;
-    } else {
-        // activate other tasks
-    }
-}
+    if (doc["action"] == "new-data") { // new data from service
+        int temperature = doc["data"]["temperature"];
+        if (temperature > ALARM_THRESHOLD && !Garden.getIrrigationSystem()->isActive()) {
+            Garden.setState(ALARM);
+        }
+    } else if (doc["action"] == "update-state") {
+        // if new state is MANUAL 
+        {
+            Garden.setState(MANUAL);
+        } 
+        // if new state is AUTO 
+        {
+            Garden.setState(AUTO);
+        }
+    } else if (doc["action"] == "manual-control") {
 
-String MainAsyncFSM::getId() {
-    return "MAIN-AFSM";
+    }
 }

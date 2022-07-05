@@ -1,17 +1,21 @@
 #include <Arduino.h>
 
-#include "model/SmartGardenImpl.h"
 #include "controller/fsm/MainAsyncFSM.h"
-#include "setup.h"
+#include "controller/fsm/IrrigationAsyncFSM.h"
+#include "controller/fsm/LightingAsyncFSM.h"
 
-SmartGarden* garden;
 AsyncFSM* mainFSM;
+AsyncFSM* irrigationFSM;
+AsyncFSM* lightingFSM;
 
 void setup() {
-    garden = new SmartGardenImpl();
+    irrigationFSM = new IrrigationAsyncFSM();
+    lightingFSM = new LightingAsyncFSM();
     mainFSM = new MainAsyncFSM();
 }
 
 void loop() {
     mainFSM->checkEvents();
+    irrigationFSM->checkEvents();
+    lightingFSM->checkEvents();
 }

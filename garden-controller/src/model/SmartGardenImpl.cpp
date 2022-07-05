@@ -8,7 +8,6 @@
 #include "../uilities/Logger.h"
 
 SmartGardenImpl::SmartGardenImpl() {
-    Logger::getLogger()->log("INIT GARDEN");
     auto factory = new HwActuatorsFactory();
     this->irrigationSystem = new IrrigationSystemImpl(factory->createServoMotor(SERVO_MOTOR_PIN));
     Light* lights[4]= {
@@ -31,4 +30,8 @@ LightingSystem* SmartGardenImpl::getLightingSystem() const {
 
 GardenState SmartGardenImpl::getState() {
     return this->state;
+}
+
+void SmartGardenImpl::setState(GardenState newState) {
+    this->state = newState;
 }
