@@ -5,9 +5,13 @@ class IrrigationSystem {
 
 public:
 
-    virtual void irrigate(const int speed) = 0;
+    virtual void irrigate() = 0;
 
     virtual void setIrrigationSpeed(const int speed) = 0;
+
+    virtual bool isActive() = 0;
+
+    virtual void stop() = 0;
 
 };
 

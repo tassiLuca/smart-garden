@@ -11,7 +11,7 @@ void MsgServiceClass::init() {
 }
 
 void MsgServiceClass::onMsgArrived(String msg) {
-    this->generateEvent(new NewDataEvent());
+    this->generateEvent(new NewDataEvent(msg));
 }
 
 void serialEvent() {

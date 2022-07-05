@@ -12,6 +12,7 @@ public:
     Led(const int pinLed);
     void switchOn() override;
     void switchOff() override;
+    void switchOn(int intensity) override;
 
 };
 

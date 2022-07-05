@@ -6,9 +6,14 @@ MainAsyncFSM::MainAsyncFSM() {
 }
 
 void MainAsyncFSM::handleEvent(Event* event) {
-    digitalWrite(8, HIGH);
-    delay(500);
-    digitalWrite(8, LOW);
+    if (event->getType() == NEW_DATA_EVENT) {
+        // check parameters in order to establish if alarm mode must be activated
+        // else activate other 2 FSM
+    } else {
+        // change actual state
+        // manual mode => 
+    }
+    // send over serial to the service the actual state
 }
 
 String MainAsyncFSM::getId() {

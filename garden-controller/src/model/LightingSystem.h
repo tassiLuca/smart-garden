@@ -4,7 +4,9 @@
 class LightingSystem {
 
 public:
-    virtual void activate(int brightnessIntensity) = 0;
+    virtual void activate() = 0;
+
+    virtual void setIntensity(int brightnessLevel);
 
     virtual void deactivate() = 0;
 

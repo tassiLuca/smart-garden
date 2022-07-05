@@ -8,7 +8,7 @@ class ActuatorsFactory {
 
 public:
     
-    virtual Light* createLight(const int buttonPin) const = 0;
+    virtual Light* createLight(const int lightPin) const = 0;
 
     virtual ServoMotor* createServoMotor(const int servoMotorPin) const = 0;
 

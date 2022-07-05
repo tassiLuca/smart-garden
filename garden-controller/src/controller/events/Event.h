@@ -10,18 +10,20 @@
 class Event {
 
 public:
-    Event(const int type) : type(type) {}
+    Event(const int type, const String data) : type(type), data(data) {}
     int getType() { return type; }
+    String getData() { return data; }
 
 private:
     int type;
+    String data;
 
 };
 
 class NewDataEvent: public Event {
 
 public:
-    NewDataEvent(): Event(NEW_DATA_EVENT) { };
+    NewDataEvent(const String data): Event(NEW_DATA_EVENT, data) { };
 
 };
 
@@ -29,7 +31,7 @@ public:
 class ChangeStateEvent: public Event { 
 
 public:
-    ChangeStateEvent(): Event(CHANGE_STATE_EVENT) { };
+    ChangeStateEvent(const String data): Event(CHANGE_STATE_EVENT, data) { };
 
 };
 

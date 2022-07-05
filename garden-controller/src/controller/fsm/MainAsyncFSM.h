@@ -14,6 +14,9 @@ public:
 
     String getId();
 
+private:
+    
+
 };
 
 #endif
