@@ -24,8 +24,10 @@ void GardenController::run() {
 void GardenController::perceiveData() {
     // [NOTE] By default, PubSubClient limits the message size to 256 bytes (including header)
     StaticJsonDocument<256> doc;
-    doc["temperature"] = map(tempSensor->getValue(), 0, 43, 1, TEMPERATURE_LEVELS + 1);
-    doc["lightness"] = map(lightSensor->readValue(), 0, 4096, 1, LIGHTNESS_LEVELS + 1);
+    doc["action"] = "add-data";
+    JsonObject obj = doc.createNestedObject("data");
+    obj["temperature"] = map(tempSensor->getValue(), 0, 43, 1, TEMPERATURE_LEVELS + 1);
+    obj["lightness"] = map(lightSensor->readValue(), 0, 4096, 1, LIGHTNESS_LEVELS + 1);
     serializeJson(doc, data);
     Logger::getLogger()->log(String(data));
 }
