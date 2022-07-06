@@ -22,7 +22,7 @@
 
 /*
 {
-    "action": "new-data" / "update-state" / "manual-control"
+    "action": "add-data" / "update-state" / "manual-control"
     "data": {
         "temperature": ....
         "lightness": ....

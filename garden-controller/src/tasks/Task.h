@@ -39,6 +39,9 @@ class State
 private:
     Task* task;
 
+protected:
+    SmartGardenImpl Garden;
+
 public:
 
     virtual ~State() {}

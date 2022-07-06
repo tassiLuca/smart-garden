@@ -7,7 +7,10 @@ class AutoState: public State {
 
 public:
     void handle() override;
-    void checkTransitions(int temperatureLevel, int lightnessLevel);
+
+private:
+    void checkTransitions(String rawData);
+
 
 };
 
