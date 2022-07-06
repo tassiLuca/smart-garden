@@ -8,14 +8,17 @@ class IrrigationSystemImpl: public IrrigationSystem {
 
 public:
     IrrigationSystemImpl(ServoMotor* servoMotor);
-    void irrigate(const int speed) override;
+    void irrigate() override;
     void stop() override;
-    bool isActive() override;
+    void setIrrigationSpeed(int speed) override;
+    OnOffState getState() override;
+    void setState(OnOffState newState) override;
 
 private:
     ServoMotor* servo;
-    void moveServo(const int speed);
-    bool active;
+    void moveServo();
+    int speed;
+    OnOffState state;
 
 };
 

@@ -2,13 +2,13 @@
 #define __MAIN_TASK__
 
 #include "../BaseTask.h"
-#include "AutoState.h"
+#include "IdleState.h"
 
 class MainTask: public BaseTask {
 
 public:
     MainTask(const int period): BaseTask(period) {
-        this->init(new AutoState());
+        this->init(new IdleState());
     }
 
 };

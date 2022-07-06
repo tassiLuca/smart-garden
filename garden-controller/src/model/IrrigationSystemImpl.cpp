@@ -1,12 +1,12 @@
 #include "IrrigationSystemImpl.h"
 
+#define DEFAULT_SPEED = 1;
 
-IrrigationSystemImpl::IrrigationSystemImpl(ServoMotor* servoMotor)
-    : servo(servoMotor) {
-    active = false;
+IrrigationSystemImpl::IrrigationSystemImpl(ServoMotor* servoMotor): servo(servoMotor) { 
+    state = OFF;
 }
 
-void IrrigationSystemImpl::moveServo(const int speed) {
+void IrrigationSystemImpl::moveServo() {
     static int angle = 0;
     if (angle == 180) { 
         angle = 0;
@@ -15,16 +15,22 @@ void IrrigationSystemImpl::moveServo(const int speed) {
     servo->setPosition(angle);
 }
 
-void IrrigationSystemImpl::irrigate(const int speed) {
-    active = true;
-    moveServo(speed);
+void IrrigationSystemImpl::irrigate() {
+    moveServo();
 }
 
 void IrrigationSystemImpl::stop() {
     servo->setPosition(0);
-    active = false;
 }
 
-bool IrrigationSystemImpl::isActive() {
-    return active;
+void IrrigationSystemImpl::setIrrigationSpeed(int speed) {
+    this->speed = speed;
+}
+
+OnOffState IrrigationSystemImpl::getState() {
+    return state;
+}
+
+void IrrigationSystemImpl::setState(OnOffState newState) {
+    state = newState;
 }

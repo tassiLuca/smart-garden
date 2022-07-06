@@ -1,7 +1,13 @@
 #include <Arduino.h>
 #include "Logger.h"
+#include "../boundary/display/DisplayImpl.h"
+#include "../setup.h"
 
 Logger* Logger::logger = nullptr;
+
+Logger::Logger() {
+    display = new DisplayImpl(DISPLAY_ROWS, DISPLAY_COLS);
+}
 
 Logger* Logger::getLogger() {
     if (logger == nullptr) {
@@ -12,5 +18,6 @@ Logger* Logger::getLogger() {
 }
 
 void Logger::log(const String msg) {
-    Serial.println(msg);
+    display->clear();
+    display->print(msg);
 }

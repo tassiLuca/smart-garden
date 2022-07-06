@@ -2,20 +2,24 @@
 
 #include "serialcomm/MsgService.h"
 #include "scheduler/Scheduler.h"
-#include "model/SmartGarden.h"
+#include "uilities/Logger.h"
 #include "tasks/main/MainTask.h"
+#include "tasks/irrigation/IrrigationTask.h"
 
 Scheduler* scheduler;
 
 void setup() {
     Serial.begin(9600);
-    pinMode(12, OUTPUT);
-    scheduler = new Scheduler(500);
+    scheduler = new Scheduler(100);
     MsgService.init();
     // Creates all the tasks
-    Task* mainTask = new MainTask(1000);
-    mainTask->activate();
-    scheduler->addTask(mainTask);
+    Task* main = new MainTask(500);
+    main->activate();
+    //Task* irrigation = new IrrigationTask(100);
+    //irrigation->activate();
+    scheduler->addTask(main);
+    //scheduler->addTask(irrigation);
+    Logger::getLogger()->log("ENDED SETUP");
 }
 
 void loop() {
