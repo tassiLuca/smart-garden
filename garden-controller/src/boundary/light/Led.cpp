@@ -13,3 +13,9 @@ void Led::switchOff() {
 void Led::switchOn() {
     digitalWrite(this->pin, HIGH);
 }
+
+void Led::switchOn(int intensity) {
+    if (intensity <= 255 && intensity >= 0) {
+        analogWrite(this->pin, intensity);
+    }
+}

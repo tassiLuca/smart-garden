@@ -11,6 +11,7 @@ private:
 public:
     Led(const int pinLed);
     void switchOn() override;
+    void switchOn(int intensity) override;
     void switchOff() override;
 
 };

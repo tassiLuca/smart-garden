@@ -11,6 +11,8 @@ public:
 
     GardenState getState() override;
 
+    void setState(GardenState newState) override;
+
     LightingSystem* getLightingSystem() const override;
 
     IrrigationSystem* getIrrigationSystem() const override;    

@@ -16,6 +16,8 @@ public:
 
     virtual GardenState getState() = 0;
 
+    virtual void setState(GardenState newState) = 0;
+
     virtual LightingSystem* getLightingSystem() const = 0;
 
     virtual IrrigationSystem* getIrrigationSystem() const = 0;    

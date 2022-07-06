@@ -1,10 +1,19 @@
 #include "SmartGardenImpl.h"
-#include "SimulatedIrrigationSystem.h"
-#include "SimulatedLightingSystem.h"
+#include "../boundary/HwActuatorsFactory.h"
+#include "IrrigationSystemImpl.h"
+#include "LightingSystemImpl.h"
+#include "../setup.h"
 
 SmartGardenImpl::SmartGardenImpl() {
-    this->irrigationSystem = new SimulatedIrrigationSystem();
-    this->lightingSystem = new SimulatedLightingSystem();
+    auto factory = new HwActuatorsFactory();
+    this->irrigationSystem = new IrrigationSystemImpl(factory->createServoMotor(SERVO_MOTOR_PIN));
+    Light* lights[4]= {
+        factory->createLight(L1_PIN), 
+        factory->createLight(L2_PIN), 
+        factory->createLight(L3_PIN), 
+        factory->createLight(L4_PIN)
+    };
+    this->lightingSystem = new LightingSystemImpl(lights);
     this->state = GardenState::AUTO;
 }
 
@@ -18,4 +27,8 @@ LightingSystem* SmartGardenImpl::getLightingSystem() const {
 
 GardenState SmartGardenImpl::getState() {
     return this->state;
+}
+
+void SmartGardenImpl::setState(GardenState newState) {
+    this->state = newState;
 }

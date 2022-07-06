@@ -7,6 +7,8 @@ public:
 
     virtual void switchOn() = 0;
 
+    virtual void switchOn(int intensity) = 0;
+
     virtual void switchOff() = 0;
 
 };
