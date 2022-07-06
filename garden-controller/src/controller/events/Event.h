@@ -7,13 +7,11 @@
 class Event {
 
 public:
-    Event(const String data) : data(data) {}
-    int getType() { return type; }
+    Event(const String data) : data(data) { }
     String getData() { return data; }
 
 private:
-    int type;
-    String data;
+    const String data;
 
 };
 

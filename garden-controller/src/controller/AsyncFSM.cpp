@@ -1,7 +1,9 @@
 #include "AsyncFSM.h"
 #include <Arduino.h>
 
-AsyncFSM::AsyncFSM() {}
+AsyncFSM::AsyncFSM(SmartGarden* garden) {
+    this->garden = garden;
+}
 
 void AsyncFSM::notifyEvent(Event* event) {
     eventsQueue.push(event);
@@ -18,7 +20,7 @@ void AsyncFSM::checkEvents() {
         interrupts();
         if (event != NULL) {
             handleEvent(event);
-            delete event;
+            //delete event; // THIS IS THE PROBLEM
         }
     }
 }

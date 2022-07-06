@@ -6,13 +6,8 @@
 class LightingAsyncFSM: public AsyncFSM {
 
 public:
-    LightingAsyncFSM();
+    LightingAsyncFSM(SmartGarden* garden);
     void handleEvent(Event* event) override;
-
-private:
-    enum {IDLE, ACTIVE} currentState;
-    int getLightness(String data);
-    void updateState(int lightnessLevel);
 
 };
 

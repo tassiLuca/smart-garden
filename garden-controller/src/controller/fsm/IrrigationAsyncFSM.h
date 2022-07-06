@@ -6,12 +6,9 @@
 class IrrigationAsyncFSM: public AsyncFSM {
 
 public:
-    IrrigationAsyncFSM();
+    IrrigationAsyncFSM(SmartGarden* garden);
     void handleEvent(Event* event) override;
 
-private:
-    enum {IDLE, IRRIGATING} currentState;
-    void updateState(String data);
 };
 
 #endif

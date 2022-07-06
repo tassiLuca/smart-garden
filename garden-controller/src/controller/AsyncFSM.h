@@ -21,8 +21,8 @@ public:
     void checkEvents();
 
 protected:
-    AsyncFSM();
-    SmartGardenImpl Garden;
+    AsyncFSM(SmartGarden* garden);
+    SmartGarden* garden;
 
 private:
     std::queue<Event*> eventsQueue;

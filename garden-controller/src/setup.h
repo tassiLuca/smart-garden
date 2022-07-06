@@ -8,6 +8,18 @@
 
 #define SERVO_MOTOR_PIN 11
 
+// Display infos.
+// Keep in mind, since we are using Arduino Uno:
+// +-------------+-------------+
+// + Display Pin + Arduino Pin +
+// +-------------+-------------+
+// +     SCL     +      A5     +
+// +     SDA     +      A4     +
+// +-------------+-------------+
+// Refer to [https://www.arduino.cc/en/reference/wire] 
+#define DISPLAY_COLS 16
+#define DISPLAY_ROWS 2
+
 /*
 
 {

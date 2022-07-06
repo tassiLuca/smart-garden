@@ -1,4 +1,5 @@
 #include "MsgService.h"
+#include "../../uilities/Logger.h"
 
 String content;
 

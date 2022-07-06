@@ -4,10 +4,8 @@
 
 #define DEFAULT_BRIGHNESS_LEVEL 5
 
-LightingSystemImpl::LightingSystemImpl(Light** lights)
-    : lights(lights) {
+LightingSystemImpl::LightingSystemImpl(Light** lights): lights(lights) {
         this->brightnessLevel = DEFAULT_BRIGHNESS_LEVEL;
-        lights[1]->switchOn();
 }
 
 void LightingSystemImpl::setIntensity(int brightnessLevel) {

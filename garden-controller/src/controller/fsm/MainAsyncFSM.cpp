@@ -1,36 +1,29 @@
 #include "MainAsyncFSM.h"
-#include "../serialcomm/MsgService.h"
+#include "../../uilities/Logger.h"
 #include <ArduinoJson.h>
 
 #define ALARM_THRESHOLD 5
 
-MainAsyncFSM::MainAsyncFSM() {
-    MsgService.init();
-    MsgService.registerObserver(this);
-}
+MainAsyncFSM::MainAsyncFSM(SmartGarden* garden): AsyncFSM(garden) { }
 
 void MainAsyncFSM::handleEvent(Event* event) {
-    autoHandle(event->getData());
-}
+    // StaticJsonDocument<256> doc;
+    // deserializeJson(doc, event->getData());
+    // if (garden->getState() == AUTO && doc["action"] == "add-data") { // new data from service
+    //     int temperature = doc["data"]["temperature"];
+    //     if (temperature > ALARM_THRESHOLD && !garden->getIrrigationSystem()->isActive()) {
+    //         garden->setState(ALARM);
+    //     }
+    // } else if (doc["action"] == "update-state") {
+    //     // if new state is MANUAL 
+    //     {
+    //         garden->setState(MANUAL);
+    //     } 
+    //     // if new state is AUTO 
+    //     {
+    //         garden->setState(AUTO);
+    //     }
+    // } else if (doc["action"] == "manual-control") {
 
-void MainAsyncFSM::autoHandle(String data) {
-    StaticJsonDocument<256> doc;
-    deserializeJson(doc, data);
-    if (doc["action"] == "new-data") { // new data from service
-        int temperature = doc["data"]["temperature"];
-        if (temperature > ALARM_THRESHOLD && !Garden.getIrrigationSystem()->isActive()) {
-            Garden.setState(ALARM);
-        }
-    } else if (doc["action"] == "update-state") {
-        // if new state is MANUAL 
-        {
-            Garden.setState(MANUAL);
-        } 
-        // if new state is AUTO 
-        {
-            Garden.setState(AUTO);
-        }
-    } else if (doc["action"] == "manual-control") {
-
-    }
+    // }
 }

@@ -1,6 +1,7 @@
 #ifndef __LOGGER__
 #define __LOGGER__
 
+#include "../boundary/display/Display.h"
 #include <Arduino.h>
 
 class Logger {
@@ -21,9 +22,11 @@ public:
     void log(const String msg);
 
 private:
-    Logger(){}
+    Logger();
 
     static Logger* logger;
+
+    Display* display;
 
 };
 

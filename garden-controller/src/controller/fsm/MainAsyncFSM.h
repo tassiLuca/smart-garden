@@ -8,13 +8,8 @@
 class MainAsyncFSM: public AsyncFSM {
 
 public:
-    MainAsyncFSM();
+    MainAsyncFSM(SmartGarden* garden);
     void handleEvent(Event* event) override;
-
-private:
-    IrrigationAsyncFSM* irrigationFSM;
-    LightingAsyncFSM* lightingFSM;
-    void autoHandle(String event);
 
 };
 
