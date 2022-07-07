@@ -6,4 +6,6 @@ public interface DataPoint {
 
     int getLightness();
 
+    String getTimeStamp();
+
 }

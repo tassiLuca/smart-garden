@@ -8,6 +8,9 @@ import it.unibo.esiot.smartgarden.service.commchannel.CommChannel;
 import it.unibo.esiot.smartgarden.service.model.DataPointImpl;
 import it.unibo.esiot.smartgarden.service.model.SmartGarden;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /*
  * MQTT Agent
  */
@@ -52,10 +55,13 @@ public class MQTTAgent extends AbstractVerticle {
 	}
 
 	private void storeDataPoint(final MqttPublishMessage msg) {
+		final var now = LocalDateTime.now();
+		final var dateTimeFormatter = DateTimeFormatter.ofPattern("yy-MM-dd HH:mm:ss");
+		final String timestamp = now.format(dateTimeFormatter);
 		final JsonObject res = msg.payload().toJsonObject();
 		final int temperature = res.getInteger("temperature");
 		final int lightness = res.getInteger("lightness");
-		this.garden.addNewDataPoint(new DataPointImpl(temperature, lightness));
+		this.garden.addNewDataPoint(new DataPointImpl(temperature, lightness, timestamp));
 	}
 
 	private void log(final String msg) {

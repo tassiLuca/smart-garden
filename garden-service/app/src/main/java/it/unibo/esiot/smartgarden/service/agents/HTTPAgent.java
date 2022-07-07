@@ -51,6 +51,7 @@ public class HTTPAgent extends AbstractVerticle {
 		final var dataPoints = this.garden.getDataPoints();
 		for (final var point: dataPoints) {
 			final JsonObject data = new JsonObject();
+			data.put("timestamp", point.getTimeStamp());
 			data.put("lightness", point.getLightness());
 			data.put("temperature", point.getTemperature());
 			arr.add(data);
