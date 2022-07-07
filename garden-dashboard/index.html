@@ -2,16 +2,23 @@
 <html lang="en">
     <head>
         <title>Smart Garden Dashboard</title>
+        <link rel="stylesheet" href="style.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
     </head>
     <body>
-        <h1>Smart Garden Dashboard</h1>
-        <h2>Third Assignment IoT @ UniBo</h2>
-        <div>
-            <canvas id="chart"></canvas>
-        </div>
+        <header>
+            <h1>Smart Garden Dashboard</h1>
+            <h2>Third Assignment of <em>Embedded System & IoT</em> @ UniBo</h2>
+            <p>Luca Tassinari</p>
+        </header>
+        <main>
+            <h3>Garden State: <span id="state"></span></h3>
+            <div class="chart-container">
+                <canvas id="chart"></canvas>
+            </div>
+        </main>
     </body>
     <script src="index.js"></script>
 </html>

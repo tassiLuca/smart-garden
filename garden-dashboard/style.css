@@ -1,0 +1,12 @@
+html {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+@media screen and (min-width: 1300px) {
+    div.chart-container {
+        padding: 0 17%;
+        height: 30vw;
+        width: 65vw;
+    }
+}
