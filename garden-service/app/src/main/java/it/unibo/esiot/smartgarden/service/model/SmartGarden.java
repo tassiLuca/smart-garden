@@ -1,5 +1,7 @@
 package it.unibo.esiot.smartgarden.service.model;
 
+import java.util.List;
+
 public interface SmartGarden {
 
     enum GardenState {
@@ -18,10 +20,12 @@ public interface SmartGarden {
         }
     }
 
-    public String getState();
+    String getState();
 
-    public void changeState(final GardenState newState);
+    void changeState(final GardenState newState);
 
-    public void addNewDataPoint(final DataPoint data);
+    void addNewDataPoint(final DataPoint data);
+
+    List<DataPoint> getDataPoints();
 
 }

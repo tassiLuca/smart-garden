@@ -9,7 +9,7 @@ public class SmartGardenImpl implements SmartGarden {
 
     private static final int MAX_SIZE = 15;
     private GardenState state = GardenState.AUTO;
-    private final LinkedList<DataPoint> dataPoints = new LinkedList<>();
+    private final List<DataPoint> dataPoints = new ArrayList<>();
 
     @Override
     public String getState() {
@@ -24,9 +24,9 @@ public class SmartGardenImpl implements SmartGarden {
     @Override
     public void addNewDataPoint(DataPoint data) {
         if (dataPoints.size() == MAX_SIZE) {
-            dataPoints.removeFirst();
+            dataPoints.remove(0);
         }
-        dataPoints.addFirst(data);
+        dataPoints.add(data);
     }
 
     public List<DataPoint> getDataPoints() {

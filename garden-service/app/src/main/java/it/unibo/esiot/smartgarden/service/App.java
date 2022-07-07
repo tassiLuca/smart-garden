@@ -15,7 +15,7 @@ public class App {
         SmartGarden garden = new SmartGardenImpl();
         Vertx vertx = Vertx.vertx();
         MQTTAgent agent = new MQTTAgent(channel, garden);
-        HTTPAgent service = new HTTPAgent(80);
+        HTTPAgent service = new HTTPAgent(80, garden);
         vertx.deployVerticle(agent);
         vertx.deployVerticle(service);
     }
