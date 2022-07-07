@@ -10,11 +10,13 @@ private:
     int elapsedTime;
     bool active;
     State* currentState;
+    SmartGarden* garden;
 
 public:
-    BaseTask(const int period): myPeriod(period) {
+    BaseTask(const int period, SmartGarden* garden)
+        : myPeriod(period)
+        , garden(garden) {
         elapsedTime = 0;
-        active = false;
     }
 
     void init(State *state) {
@@ -44,16 +46,8 @@ public:
         }
     }
 
-    bool isActive() {
-        return active;
-    }
-
-    void activate() {
-        active = true;
-    }
-
-    void deactivate() {
-        active = false;
+    SmartGarden* Garden() {
+        return garden;
     }
 
 };

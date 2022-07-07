@@ -7,13 +7,11 @@
 SmartGardenImpl::SmartGardenImpl() {
     auto factory = new HwActuatorsFactory();
     this->irrigationSystem = new IrrigationSystemImpl(factory->createServoMotor(SERVO_MOTOR_PIN));
-    Light* lights[4]= {
-        factory->createLight(L1_PIN), 
-        factory->createLight(L2_PIN), 
-        factory->createLight(L3_PIN), 
-        factory->createLight(L4_PIN)
-    };
-    this->lightingSystem = new LightingSystemImpl(lights);
+    Light* l1 = factory->createLight(L1_PIN);
+    Light* l2 = factory->createLight(L2_PIN);
+    Light* l3 = factory->createLight(L3_PIN); 
+    Light* l4 = factory->createLight(L4_PIN);
+    this->lightingSystem = new LightingSystemImpl(l1, l2, l3, l4);
     this->state = GardenState::AUTO;
 }
 

@@ -18,7 +18,7 @@ void AutoControlState::handle() {
     delete msg;
     // sistema di allarme
     if (temperature >= ALARM_THRESHOLD) {
-        Garden.setState(ALARM);
+        getTask()->Garden()->setState(ALARM);
     } else {
         setupSystem(temperature, lightness);
     }
@@ -28,15 +28,15 @@ void AutoControlState::handle() {
 void AutoControlState::setupSystem(int temperature, int lightness) {
     // accensione luci
     if (lightness < LIGHTS_ACTIVATION_THRESHOLD) {
-        Garden.getLightingSystem()->activate(lightness);
+        getTask()->Garden()->getLightingSystem()->activate(lightness);
     } else {
-        Garden.getLightingSystem()->deactivate();
+        getTask()->Garden()->getLightingSystem()->deactivate();
     }
     // accensione sistema irrigazione
     if (lightness < IRRIGATION_ACTIVATION_THRESHOLD) {
-        Garden.getIrrigationSystem()->setState(ON);
-        Garden.getIrrigationSystem()->setIrrigationSpeed(temperature);
+        getTask()->Garden()->getIrrigationSystem()->setState(ON);
+        getTask()->Garden()->getIrrigationSystem()->setIrrigationSpeed(temperature);
     } else {
-        Garden.getIrrigationSystem()->setState(OFF);
+        getTask()->Garden()->getIrrigationSystem()->setState(OFF);
     }
 }

@@ -7,7 +7,7 @@
 class MainTask: public BaseTask {
 
 public:
-    MainTask(const int period): BaseTask(period) {
+    MainTask(const int period, SmartGarden* garden): BaseTask(period, garden) {
         this->init(new IdleState());
     }
 

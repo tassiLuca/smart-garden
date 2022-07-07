@@ -5,16 +5,18 @@
 #include "uilities/Logger.h"
 #include "tasks/main/MainTask.h"
 #include "tasks/irrigation/IrrigationTask.h"
+#include "model/SmartGardenImpl.h"
 
+SmartGarden* garden;
 Scheduler* scheduler;
 
 void setup() {
     Serial.begin(9600);
     scheduler = new Scheduler(100);
     MsgService.init();
+    garden = new SmartGardenImpl();
     // Creates all the tasks
-    Task* main = new MainTask(500);
-    main->activate();
+    Task* main = new MainTask(500, garden);
     //Task* irrigation = new IrrigationTask(100);
     //irrigation->activate();
     scheduler->addTask(main);

@@ -1,7 +1,7 @@
 #ifndef __TASK__
 #define __TASK__
 
-#include "../model/SmartGardenImpl.h"
+#include "../model/SmartGarden.h"
 
 class State;
 
@@ -20,11 +20,7 @@ public:
 
     virtual bool updateAndCheckTime(const int basePeriod) = 0;
 
-    virtual bool isActive() = 0;
-
-    virtual void activate() = 0;
-
-    virtual void deactivate() = 0;
+    virtual SmartGarden* Garden() = 0;
     
 };
 
@@ -38,9 +34,6 @@ class State
 
 private:
     Task* task;
-
-protected:
-    SmartGardenImpl Garden;
 
 public:
 

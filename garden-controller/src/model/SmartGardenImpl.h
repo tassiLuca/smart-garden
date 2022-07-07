@@ -24,6 +24,4 @@ private:
     
 };
 
-extern SmartGardenImpl SmartGarden;
-
 #endif
