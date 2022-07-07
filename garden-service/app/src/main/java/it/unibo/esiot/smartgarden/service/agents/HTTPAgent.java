@@ -1,6 +1,7 @@
 package it.unibo.esiot.smartgarden.service.agents;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
@@ -27,6 +28,15 @@ public class HTTPAgent extends AbstractVerticle {
 	@Override
 	public void start() {		
 		Router router = Router.router(vertx);
+		router.route().handler(io.vertx.ext.web.handler.CorsHandler.create(".*.")
+				.allowedMethod(io.vertx.core.http.HttpMethod.GET)
+				.allowedMethod(io.vertx.core.http.HttpMethod.POST)
+				.allowedMethod(io.vertx.core.http.HttpMethod.OPTIONS)
+				.allowedMethod(HttpMethod.PUT)
+				.allowedHeader("Access-Control-Request-Method")
+				.allowedHeader("Access-Control-Allow-Origin")
+				.allowedHeader("Access-Control-Allow-Headers")
+				.allowedHeader("Content-Type"));
 		router.route().handler(BodyHandler.create());
 		router.get(PATH).handler(this::handleGetData);
 		vertx.createHttpServer().requestHandler(router).listen(port);
