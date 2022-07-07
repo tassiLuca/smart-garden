@@ -17,10 +17,9 @@ void setup() {
     garden = new SmartGardenImpl();
     // Creates all the tasks
     Task* main = new MainTask(500, garden);
-    //Task* irrigation = new IrrigationTask(100);
-    //irrigation->activate();
+    Task* irrigation = new IrrigationTask(100, garden);
     scheduler->addTask(main);
-    //scheduler->addTask(irrigation);
+    scheduler->addTask(irrigation);
     Logger::getLogger()->log("ENDED SETUP");
 }
 

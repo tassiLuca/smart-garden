@@ -1,16 +1,16 @@
-// #ifndef __IRRIGATION_TASK__
-// #define __IRRIGATION_TASK__
+#ifndef __IRRIGATION_TASK__
+#define __IRRIGATION_TASK__
 
-// #include "../BaseTask.h"
-// #include "PauseState.h"
+#include "../BaseTask.h"
+#include "PauseState.h"
 
-// class IrrigationTask: public BaseTask {
+class IrrigationTask: public BaseTask {
 
-// public:
-//     IrrigationTask(const int period): BaseTask(period) {
-//         this->init(new PauseState());
-//     }
+public:
+    IrrigationTask(const int period, SmartGarden* garden): BaseTask(period, garden) {
+        this->init(new PauseState());
+    }
 
-// };
+};
 
-// #endif
+#endif

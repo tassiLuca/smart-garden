@@ -1,13 +1,17 @@
-// #ifndef __ACTIVE_STATE__
-// #define __ACTIVE_STATE__
+#ifndef __ACTIVE_STATE__
+#define __ACTIVE_STATE__
 
-// #include "../Task.h"
+#include "../Task.h"
 
-// class ActiveState: public State {
+class ActiveState: public State {
 
-// public:
-//     void handle() override;
+public:
+    ActiveState();
+    void handle() override;
 
-// };
+private:
+    unsigned long activationTime;
 
-// #endif
+};
+
+#endif

@@ -1,13 +1,13 @@
-// #ifndef __PAUSE_STATE__
-// #define __PAUSE_STATE__
+#ifndef __PAUSE_STATE__
+#define __PAUSE_STATE__
 
-// #include "../Task.h"
+#include "../Task.h"
 
-// class PauseState: public State {
+class PauseState: public State {
 
-// public:
-//     void handle() override;
+public:
+    void handle() override;
 
-// };
+};
 
-// #endif
+#endif
