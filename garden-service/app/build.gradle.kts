@@ -34,6 +34,7 @@ dependencies {
 
     // jssc
     implementation("io.github.java-native:jssc:2.9.4")
+
 }
 
 application {

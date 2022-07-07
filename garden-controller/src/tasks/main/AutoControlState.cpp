@@ -1,7 +1,7 @@
 #include "AutoControlState.h"
 #include <ArduinoJson.h>
 #include "../../serialcomm/MsgService.h"
-#include "IdleState.h"
+#include "SendDataState.h"
 #include "../../uilities/Logger.h"
 
 #define ALARM_THRESHOLD 5
@@ -22,7 +22,7 @@ void AutoControlState::handle() {
     } else {
         setupSystem(temperature, lightness);
     }
-    this->getTask()->stateTransition(new IdleState());
+    this->getTask()->stateTransition(new SendDataState());
 }
 
 void AutoControlState::setupSystem(int temperature, int lightness) {

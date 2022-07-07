@@ -12,7 +12,6 @@ import io.vertx.ext.web.handler.BodyHandler;
  */
 public class HTTPAgent extends AbstractVerticle {
 
-	private static final int MAX_SIZE = 10;
 	private static final String PATH = "/api/data";
 	private final int port;
 
@@ -24,30 +23,17 @@ public class HTTPAgent extends AbstractVerticle {
 	public void start() {		
 		Router router = Router.router(vertx);
 		router.route().handler(BodyHandler.create());
-		router.post(PATH).handler(this::handleAddNewData);
 		router.get(PATH).handler(this::handleGetData);
-		vertx.createHttpServer()
-				.requestHandler(router)
-				.listen(port);
+		vertx.createHttpServer().requestHandler(router).listen(port);
 		log("Service ready.");
-	}
-	
-	private void handleAddNewData(final RoutingContext routingContext) {
-		HttpServerResponse response = routingContext.response();
-		log("new msg " + routingContext.getBodyAsString());
-		JsonObject res = routingContext.getBodyAsJson();
 	}
 	
 	private void handleGetData(final RoutingContext routingContext) {
 		log("get request");
 	}
-	
-	private void sendError(final int statusCode, final HttpServerResponse response) {
-		response.setStatusCode(statusCode).end();
-	}
 
 	private void log(final String msg) {
-		System.out.println("[DATA SERVICE] "+msg);
+		System.out.println("[DATA SERVICE] " + msg);
 	}
 
 }
