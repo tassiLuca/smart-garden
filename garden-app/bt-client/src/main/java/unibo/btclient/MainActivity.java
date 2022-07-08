@@ -1,20 +1,27 @@
 package unibo.btclient;
 
+import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.function.Function;
+
 import unibo.btlib.BluetoothChannel;
 import unibo.btlib.BluetoothUtils;
 import unibo.btlib.ConnectToBluetoothServerTask;
@@ -25,9 +32,10 @@ import unibo.btclient.utils.C;
 
 public class MainActivity extends AppCompatActivity {
     private BluetoothChannel btChannel;
-    private final int[] buttons = {R.id.ledSwitch1, R.id.ledSwitch2, R.id.btnIncCounterLed3,
-            R.id.btnIncCounterLed4, R.id.btnDecCounterLed3, R.id.btnDecCounterLed4,
-            R.id.switchIrrigation, R.id.btnIncIrrigationSpeed, R.id.btnDecIrrigationSpeed};
+    private final List<Integer> buttons = List.of(R.id.ledSwitch1, R.id.ledSwitch2,
+            R.id.btnIncCounterLed3, R.id.btnIncCounterLed4, R.id.btnDecCounterLed3,
+            R.id.btnDecCounterLed4, R.id.switchIrrigation, R.id.btnIncIrrigationSpeed,
+            R.id.btnDecIrrigationSpeed);
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -35,6 +43,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         final BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
         if (btAdapter != null && !btAdapter.isEnabled()) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
             startActivityForResult(
                     new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE),
                     C.bluetooth.ENABLE_BT_REQUEST
@@ -57,24 +75,15 @@ public class MainActivity extends AppCompatActivity {
                 l.setEnabled(true);
             }
         });
-        findViewById(R.id.ledSwitch1).setOnClickListener(l ->
-                onSwitchPressed(R.id.ledSwitch1, "LED1"));
-        findViewById(R.id.ledSwitch2).setOnClickListener(l ->
-                onSwitchPressed(R.id.ledSwitch2, "LED2"));
-        findViewById(R.id.btnIncCounterLed3).setOnClickListener(l ->
-                onBtnPressed(R.id.counterLed3, "LED3", true));
-        findViewById(R.id.btnDecCounterLed3).setOnClickListener(l ->
-                onBtnPressed(R.id.counterLed3, "LED3", false));
-        findViewById(R.id.btnIncCounterLed4).setOnClickListener(l ->
-                onBtnPressed(R.id.counterLed4, "LED4", true));
-        findViewById(R.id.btnDecCounterLed4).setOnClickListener(l ->
-                onBtnPressed(R.id.counterLed4, "LED4", false));
-        findViewById(R.id.btnIncIrrigationSpeed).setOnClickListener(l ->
-                onBtnPressed(R.id.countIrrigation, "IRRIGATION", true));
-        findViewById(R.id.btnDecIrrigationSpeed).setOnClickListener(l ->
-                onBtnPressed(R.id.countIrrigation, "IRRIGATION", false));
-        findViewById(R.id.switchIrrigation).setOnClickListener(l ->
-                onSwitchPressed(R.id.switchIrrigation, "IRRIGATION"));
+        findViewById(R.id.ledSwitch1).setOnClickListener(l -> onSwitchPressed(R.id.ledSwitch1, "LED1"));
+        findViewById(R.id.ledSwitch2).setOnClickListener(l -> onSwitchPressed(R.id.ledSwitch2, "LED2"));
+        findViewById(R.id.btnIncCounterLed3).setOnClickListener(l -> onBtnPressed(R.id.counterLed3, "LED3", c -> c+1));
+        findViewById(R.id.btnDecCounterLed3).setOnClickListener(l -> onBtnPressed(R.id.counterLed3, "LED3", c -> c-1));
+        findViewById(R.id.btnIncCounterLed4).setOnClickListener(l -> onBtnPressed(R.id.counterLed4, "LED4", c -> c+1));
+        findViewById(R.id.btnDecCounterLed4).setOnClickListener(l -> onBtnPressed(R.id.counterLed4, "LED4", c -> c-1));
+        findViewById(R.id.btnIncIrrigationSpeed).setOnClickListener(l -> onBtnPressed(R.id.countIrrigation, "IRRIGATION", c -> c+1));
+        findViewById(R.id.btnDecIrrigationSpeed).setOnClickListener(l -> onBtnPressed(R.id.countIrrigation, "IRRIGATION", c -> c-1));
+        findViewById(R.id.switchIrrigation).setOnClickListener(l -> onSwitchPressed(R.id.switchIrrigation, "IRRIGATION"));
     }
 
     private void onSwitchPressed(final int textViewId, final String desc) {
@@ -82,11 +91,15 @@ public class MainActivity extends AppCompatActivity {
         sendData(desc, sc.isChecked() ? 1 : 0);
     }
 
-    private void onBtnPressed(final int textViewId, final String desc, final boolean increment) {
+    private void onBtnPressed(final int textViewId, final String desc, final Function<Integer, Integer> fun) {
         final TextView textView = findViewById(textViewId);
-        final int newValue = Integer.parseInt(textView.getText().toString()) + (increment ? 1 : -1);
+        final int newValue = clip(fun.apply(Integer.parseInt(textView.getText().toString())), 0, 255);
         textView.setText(Integer.toString(newValue));
         sendData(desc, newValue);
+    }
+
+    private int clip(final int actualValue, final int minValue, final int maxValue) {
+        return actualValue < minValue ? minValue : actualValue > maxValue ? maxValue : actualValue;
     }
 
     private void sendData(final String desc, final Object obj) {
@@ -100,11 +113,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void resetCounters() {
-        final int[] text = {R.id.counterLed3, R.id.counterLed4, R.id.countIrrigation};
-        for (int t : text) {
+        List.of(R.id.counterLed3, R.id.counterLed4, R.id.countIrrigation).stream().forEach(t -> {
             TextView tv = findViewById(t);
             tv.setText("0");
-        }
+        });
     }
 
     private void enableDisableComponents(final boolean enable) {
@@ -141,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onConnectionActive(final BluetoothChannel channel) {
                 Toast.makeText(getApplicationContext(),"Connected", Toast.LENGTH_LONG).show();
+                ((Button)findViewById(R.id.manualControl)).setText("AUTO CONTROL");
                 enableDisableComponents(true);
                 btChannel = channel;
 
@@ -157,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onConnectionCanceled() {
+                ((Button)findViewById(R.id.manualControl)).setText("MANUAL CONTROL");
                 resetCounters();
                 ((SwitchCompat) findViewById(R.id.ledSwitch1)).setChecked(false);
                 ((SwitchCompat) findViewById(R.id.ledSwitch2)).setChecked(false);
