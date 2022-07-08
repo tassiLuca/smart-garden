@@ -1,1 +1,1 @@
-include ':bt-client', ':bt-lib', ':bt-server', ':bt-client-for-emulator'
+include ':bt-client', ':bt-lib'
