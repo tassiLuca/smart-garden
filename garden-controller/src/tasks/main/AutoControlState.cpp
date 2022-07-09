@@ -1,6 +1,6 @@
 #include "AutoControlState.h"
 #include <ArduinoJson.h>
-#include "../../serialcomm/MsgService.h"
+#include "../../comm/MsgService.h"
 #include "SendDataState.h"
 #include "../../uilities/Logger.h"
 

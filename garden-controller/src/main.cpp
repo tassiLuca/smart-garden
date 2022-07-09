@@ -1,6 +1,6 @@
 #include <Arduino.h>
 
-#include "serialcomm/MsgService.h"
+#include "comm/MsgService.h"
 #include "scheduler/Scheduler.h"
 #include "uilities/Logger.h"
 #include "tasks/main/MainTask.h"

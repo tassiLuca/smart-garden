@@ -1,5 +1,5 @@
 #include "SendDataState.h"
-#include "../../serialcomm/MsgService.h"
+#include "../../comm/MsgService.h"
 #include "IdleState.h"
 
 void SendDataState::handle() {
