@@ -11,6 +11,10 @@ public:
     void activate(const int brightnessIntensity) override;
     void deactivate() override;
     bool isActive() override;
+    void setL1(bool active) override;
+    void setL2(bool active) override;
+    void setL3(int lightness) override;
+    void setL4(int lightness) override;
 
 private:
     Light* l1;

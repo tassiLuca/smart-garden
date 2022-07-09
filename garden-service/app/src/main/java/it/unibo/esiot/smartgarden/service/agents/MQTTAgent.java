@@ -38,13 +38,14 @@ public class MQTTAgent extends AbstractVerticle {
 
 	private void responseHandler(final MqttPublishMessage msg) {
 		final String receivedMsg = msg.payload().toString();
-		log("New message in [" + msg.topicName() + " ]: " + receivedMsg);
+		log("New message in [" + msg.topicName() + "]: " + receivedMsg);
 		storeDataPoint(msg);
 		log("Sending to Arduino the data");
 		channel.sendMsg(receivedMsg);
 		log("Waiting response from Arduino");
 		try {
 			final var res = channel.receiveMsg();
+			log("Received: " + res);
 			this.garden.changeState(
 					res.equals("AUTO") ? SmartGarden.GardenState.AUTO :
 							res.equals("MANUAL") ? SmartGarden.GardenState.MANUAL : SmartGarden.GardenState.ALARM
@@ -52,6 +53,7 @@ public class MQTTAgent extends AbstractVerticle {
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
 		}
+		log("-------------------------------");
 	}
 
 	private void storeDataPoint(final MqttPublishMessage msg) {

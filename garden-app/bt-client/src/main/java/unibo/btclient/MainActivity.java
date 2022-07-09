@@ -15,9 +15,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
@@ -32,8 +29,8 @@ import unibo.btclient.utils.C;
 
 public class MainActivity extends AppCompatActivity {
     private BluetoothChannel btChannel;
-    private final List<Integer> buttons = List.of(R.id.ledSwitch1, R.id.ledSwitch2,
-            R.id.btnIncCounterLed3, R.id.btnIncCounterLed4, R.id.btnDecCounterLed3,
+    private final List<Integer> buttons = List.of(R.id.manualControlBtn, R.id.ledSwitch1,
+            R.id.ledSwitch2, R.id.btnIncCounterLed3, R.id.btnIncCounterLed4, R.id.btnDecCounterLed3,
             R.id.btnDecCounterLed4, R.id.switchIrrigation, R.id.btnIncIrrigationSpeed,
             R.id.btnDecIrrigationSpeed);
 
@@ -64,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private void initUI() {
         enableDisableComponents(false);
         resetCounters();
-        findViewById(R.id.manualControl).setOnClickListener(l -> {
+        findViewById(R.id.connectBtn).setOnClickListener(l -> {
             l.setEnabled(false);
             try {
                 connectToBTServer();
@@ -73,6 +70,15 @@ public class MainActivity extends AppCompatActivity {
                 bluetoothDeviceNotFound.printStackTrace();
             } finally {
                 l.setEnabled(true);
+            }
+        });
+        findViewById(R.id.manualControlBtn).setOnClickListener(l -> {
+            if (((Button)findViewById(R.id.manualControlBtn)).getText().toString().equals("MANUAL CONTROL")) {
+                ((Button)findViewById(R.id.manualControlBtn)).setText("AUTO CONTROL");
+                btChannel.sendMessage("SET-STATE:AUTO");
+            } else {
+                ((Button)findViewById(R.id.manualControlBtn)).setText("MANUAL CONTROL");
+                btChannel.sendMessage("SET-STATE:MANUAL");
             }
         });
         findViewById(R.id.ledSwitch1).setOnClickListener(l -> onSwitchPressed(R.id.ledSwitch1, "LED1"));
@@ -148,7 +154,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onConnectionActive(final BluetoothChannel channel) {
                 Toast.makeText(getApplicationContext(),"Connected", Toast.LENGTH_LONG).show();
-                ((Button)findViewById(R.id.manualControl)).setText("AUTO CONTROL");
                 enableDisableComponents(true);
                 btChannel = channel;
 
@@ -161,13 +166,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onMessageSent(String sentMessage) { }
                 });
-
-                btChannel.sendMessage("SET-STATE:MANUAL");
             }
 
             @Override
             public void onConnectionCanceled() {
-                ((Button)findViewById(R.id.manualControl)).setText("MANUAL CONTROL");
                 resetCounters();
                 ((SwitchCompat) findViewById(R.id.ledSwitch1)).setChecked(false);
                 ((SwitchCompat) findViewById(R.id.ledSwitch2)).setChecked(false);

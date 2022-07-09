@@ -10,6 +10,14 @@ public:
 
     virtual bool isActive() = 0;
 
+    virtual void setL1(bool active) = 0;
+
+    virtual void setL2(bool active) = 0;
+
+    virtual void setL3(int lightness) = 0;
+
+    virtual void setL4(int lightness) = 0;
+
 };
 
 #endif

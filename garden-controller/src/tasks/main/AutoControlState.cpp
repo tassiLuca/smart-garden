@@ -2,14 +2,13 @@
 #include <ArduinoJson.h>
 #include "../../comm/MsgService.h"
 #include "SendDataState.h"
-#include "../../uilities/Logger.h"
+#include "IdleState.h"
 
 #define ALARM_THRESHOLD 5
 #define LIGHTS_ACTIVATION_THRESHOLD 5 
 #define IRRIGATION_ACTIVATION_THRESHOLD 2
 
 void AutoControlState::handle() {
-    Logger::getLogger()->log("New service message");
     StaticJsonDocument<256> doc;
     Msg* msg = MsgService.receiveMsg();
     deserializeJson(doc, msg->getContent());

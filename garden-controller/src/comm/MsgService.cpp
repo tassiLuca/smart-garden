@@ -1,7 +1,7 @@
 #include "Arduino.h"
 #include "MsgService.h"
 
-String content;
+static String content;
 
 MsgServiceClass MsgService;
 

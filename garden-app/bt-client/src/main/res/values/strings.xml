@@ -12,4 +12,6 @@
     <string name="manual">Manual Control</string>
     <string name="irrigation">Irrigation</string>
     <string name="counter">0</string>
+    <string name="connect">Connect to Bluetooth</string>
+    <string name="alert">Disable Alert</string>
 </resources>

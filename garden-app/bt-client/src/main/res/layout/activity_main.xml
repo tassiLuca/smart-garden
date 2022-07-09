@@ -24,17 +24,19 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/imageButton3"
+                android:id="@+id/connectBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_weight="1"
+                android:contentDescription="@string/connect"
                 app:srcCompat="@drawable/ic_baseline_bluetooth_connected_24" />
 
             <ImageButton
-                android:id="@+id/imageButton4"
+                android:id="@+id/alertBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:contentDescription="@string/alert"
                 app:srcCompat="@drawable/ic_baseline_notifications_24" />
         </LinearLayout>
 
@@ -44,7 +46,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/manualControl"
+                android:id="@+id/manualControlBtn"
                 android:layout_width="match_parent"
                 android:layout_height="62dp"
                 android:text="@string/manual" />
