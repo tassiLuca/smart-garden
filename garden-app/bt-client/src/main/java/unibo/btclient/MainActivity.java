@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btnIncIrrigationSpeed).setOnClickListener(l -> onBtnPressed(R.id.countIrrigation, "IRR-SPEED", c -> c+1));
         findViewById(R.id.btnDecIrrigationSpeed).setOnClickListener(l -> onBtnPressed(R.id.countIrrigation, "IRR-SPEED", c -> c-1));
         findViewById(R.id.switchIrrigation).setOnClickListener(l -> onSwitchPressed(R.id.switchIrrigation, "IRRIGATION"));
+        findViewById(R.id.alertBtn).setOnClickListener(l -> sendData("SET-STATE", "AUTO"));
     }
 
     private void onSwitchPressed(final int textViewId, final String desc) {

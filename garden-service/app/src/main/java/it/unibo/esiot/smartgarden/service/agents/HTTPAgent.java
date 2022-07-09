@@ -2,7 +2,6 @@ package it.unibo.esiot.smartgarden.service.agents;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.http.HttpMethod;
-import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
@@ -44,7 +43,6 @@ public class HTTPAgent extends AbstractVerticle {
 	}
 	
 	private void handleGetData(final RoutingContext routingContext) {
-		log("get request");
 		final JsonObject doc = new JsonObject();
 		doc.put("status", this.garden.getState());
 		final JsonArray arr = new JsonArray();

@@ -51,7 +51,7 @@ public class MQTTAgent extends AbstractVerticle {
 							res.equals("MANUAL") ? SmartGarden.GardenState.MANUAL : SmartGarden.GardenState.ALARM
 			);
 		} catch (InterruptedException e) {
-			throw new RuntimeException(e);
+			log("No response from Arduino...");
 		}
 		log("-------------------------------");
 	}

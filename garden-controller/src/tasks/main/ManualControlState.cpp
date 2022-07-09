@@ -1,5 +1,5 @@
 #include "ManualControlState.h"
-#include "IdleState.h"
+#include "SendDataState.h"
 #include "../../comm/MsgServiceBT.h"
 
 void ManualControlState::handle() {
@@ -21,7 +21,7 @@ void ManualControlState::handle() {
         manualControl(obj, value);
     }
 
-    getTask()->stateTransition(new IdleState());
+    getTask()->stateTransition(new SendDataState());
 }
 
 void ManualControlState::manualControl(String obj, String value) {
