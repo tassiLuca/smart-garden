@@ -8,6 +8,6 @@ void IdleState::handle() {
     if (MsgService.isMsgAvailable() && getTask()->Garden()->getState() == AUTO) {
         this->getTask()->stateTransition(new AutoState());
     } else if (BTMsgService.isMsgAvailable()) {
-        this->getTask()->stateTransition(new ManualControlState());
+        this->getTask()->stateTransition(new ManualState());
     }
 }
