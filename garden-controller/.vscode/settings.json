@@ -4,6 +4,10 @@
         "deque": "cpp",
         "list": "cpp",
         "vector": "cpp",
-        "ios": "cpp"
+        "ios": "cpp",
+        "associative_base": "cpp",
+        "initializer_list": "cpp",
+        "iterator": "cpp",
+        "serstream": "cpp"
     }
 }

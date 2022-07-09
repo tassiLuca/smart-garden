@@ -1,6 +1,9 @@
 #include <Arduino.h>
 #include "Led.h"
 
+#define MIN_ADC_VALUE 0
+#define MAX_ADC_VALUE 255
+
 Led::Led(const int pinLed) {
     this->pin = pinLed;
     pinMode(this->pin, OUTPUT);
@@ -15,7 +18,7 @@ void Led::switchOn() {
 }
 
 void Led::switchOn(int intensity) {
-    if (intensity <= 255 && intensity >= 0) {
+    if (intensity <= MAX_ADC_VALUE && intensity >= MIN_ADC_VALUE) {
         analogWrite(this->pin, intensity);
     }
 }

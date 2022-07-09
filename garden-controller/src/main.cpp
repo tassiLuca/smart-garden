@@ -1,13 +1,12 @@
 #include <Arduino.h>
 
-#include "comm/MsgService.h"
-#include "comm/MsgServiceBT.h"
+#include "comm/BluetoothMsgService.h"
+#include "comm/SerialMsgService.h"
 #include "scheduler/Scheduler.h"
 #include "tasks/main/MainTask.h"
 #include "tasks/irrigation/IrrigationTask.h"
 #include "model/SmartGardenImpl.h"
 
-MsgServiceBT BT(7,8);
 SmartGarden* garden;
 Scheduler* scheduler;
 
@@ -15,7 +14,7 @@ void setup() {
     pinMode(2, OUTPUT);
     Serial.begin(9600);
     MsgService.init();
-    BT.init();
+    BTMsgService.init();
     scheduler = new Scheduler(100);
     garden = new SmartGardenImpl();
     // Creates all the tasks

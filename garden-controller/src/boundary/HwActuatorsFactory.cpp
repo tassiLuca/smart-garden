@@ -1,5 +1,4 @@
 #include "HwActuatorsFactory.h"
-
 #include "../boundary/light/Led.h"
 #include "../boundary/servo/ServoMotorImpl.h"
 

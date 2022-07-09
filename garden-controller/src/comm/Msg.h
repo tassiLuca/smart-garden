@@ -3,6 +3,9 @@
 
 #include <Arduino.h>
 
+/**
+ * @brief A simple class modeling the concept of a message. 
+ */
 class Msg {
 
 public:
@@ -10,6 +13,10 @@ public:
         this->content = content;
     }
   
+    /**
+     * @brief Get the string representation of the message. 
+     * @return String the message
+     */
     String getContent(){
         return content;
     }

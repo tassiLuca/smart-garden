@@ -1,9 +1,9 @@
 #include "ManualControlState.h"
 #include "SendDataState.h"
-#include "../../comm/MsgServiceBT.h"
+#include "../../comm/BluetoothMsgService.h"
 
 void ManualControlState::handle() {
-    Msg* msg = BT.receiveMsg();
+    Msg* msg = BTMsgService.receiveMsg();
     int index = msg->getContent().indexOf(":");
     String obj = msg->getContent().substring(0, index);
     String value = msg->getContent().substring(index+1);

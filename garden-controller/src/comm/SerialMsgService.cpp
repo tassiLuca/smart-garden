@@ -1,15 +1,14 @@
 #include "Arduino.h"
-#include "MsgService.h"
+#include "SerialMsgService.h"
 
 static String content;
+SerialMsgService MsgService;
 
-MsgServiceClass MsgService;
-
-bool MsgServiceClass::isMsgAvailable() {
+bool SerialMsgService::isMsgAvailable() {
     return msgAvailable;
 }
 
-Msg* MsgServiceClass::receiveMsg() {
+Msg* SerialMsgService::receiveMsg() {
     if (msgAvailable) {
         Msg* msg = currentMsg;
         msgAvailable = false;
@@ -21,7 +20,7 @@ Msg* MsgServiceClass::receiveMsg() {
     }
 }
 
-void MsgServiceClass::init() {
+void SerialMsgService::init() {
     Serial.begin(9600);
     content.reserve(256);
     content = "";
@@ -29,12 +28,14 @@ void MsgServiceClass::init() {
     msgAvailable = false;  
 }
 
-void MsgServiceClass::sendMsg(const String& msg) {
+void SerialMsgService::sendMsg(const String& msg) {
     Serial.println(msg);  
 }
 
+/**
+ * @brief This is the Arduino interrupt callback of a new serial event. 
+ */
 void serialEvent() {
-    /* reading the content */
     while (Serial.available()) {
         char ch = (char) Serial.read();
         if (ch == '\n'){

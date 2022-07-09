@@ -1,20 +1,23 @@
-#include "MsgServiceBT.h"
+#include "BluetoothMsgService.h"
+#include "../setup.h"
 
-MsgServiceBT::MsgServiceBT(int rxPin, int txPin){
+BluetoothMsgService BTMsgService(BT_ARDUINO_RX, BT_ARDUINO_TX);
+
+BluetoothMsgService::BluetoothMsgService(int rxPin, int txPin){
     channel = new SoftwareSerial(rxPin, txPin);
 }
 
-void MsgServiceBT::init(){
+void BluetoothMsgService::init(){
     content.reserve(256);
     channel->begin(9600);
     availableMsg = NULL;
 }
 
-void MsgServiceBT::sendMsg(Msg msg){
+void BluetoothMsgService::sendMsg(Msg msg){
     channel->println(msg.getContent());  
 }
 
-bool MsgServiceBT::isMsgAvailable(){
+bool BluetoothMsgService::isMsgAvailable(){
     while (channel->available()) {
         char ch = (char) channel->read();
         if (ch == '\n'){
@@ -28,7 +31,7 @@ bool MsgServiceBT::isMsgAvailable(){
     return false;  
 }
 
-Msg* MsgServiceBT::receiveMsg(){
+Msg* BluetoothMsgService::receiveMsg(){
     if (availableMsg != NULL){
         Msg* msg = availableMsg;
         availableMsg = NULL;

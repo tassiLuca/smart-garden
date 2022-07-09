@@ -6,15 +6,15 @@
 
 class ServoMotorImpl: public ServoMotor {
 
-private:
-    int pin;
-    ServoTimer2 servoMotor;
-
 public:
     ServoMotorImpl(const int servoMotorPin);
     void on();
     void setPosition(const int angle);
     void off();
+
+private:
+    int pin;
+    ServoTimer2 servoMotor;
 
 };
 
