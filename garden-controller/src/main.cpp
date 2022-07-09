@@ -11,7 +11,6 @@ SmartGarden* garden;
 Scheduler* scheduler;
 
 void setup() {
-    pinMode(2, OUTPUT);
     Serial.begin(9600);
     MsgService.init();
     BTMsgService.init();
