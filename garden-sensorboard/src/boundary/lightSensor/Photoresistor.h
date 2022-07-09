@@ -5,12 +5,12 @@
 
 class Photoresistor: public LightSensor {
 
-private:
-    int pin;
-
 public:
     Photoresistor(const int photoresistorPin);
     int readValue() override;
+
+private:
+    int pin;
 
 };
 

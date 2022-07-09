@@ -10,7 +10,7 @@ TemperatureSensorImpl::TemperatureSensorImpl(const int temperatureSensorPin) {
     this->pin = temperatureSensorPin;
 }
 
-float TemperatureSensorImpl::getValue() {
+float TemperatureSensorImpl::readValue() {
     int adcValue = analogRead(pin);
     float mVValue = adcValue * (POWER_SUPPLY / ADC_RESOLUTION);
     return (mVValue - VOLTAGE_ZERO_LEVEL) * STEP;

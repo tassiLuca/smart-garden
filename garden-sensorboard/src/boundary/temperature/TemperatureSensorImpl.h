@@ -7,7 +7,7 @@ class TemperatureSensorImpl: public TemperatureSensor {
 
 public:
     TemperatureSensorImpl(const int temperatureSensorPin);
-    float getValue() override;
+    float readValue() override;
     
 private:
     int pin;

@@ -1,6 +1,9 @@
 #include <Arduino.h>
 #include "./controller/GardenController.h"
 
+#define LOOP_INTERVAL 5000
+
+unsigned long last = 0; 
 MainController* controller;
 
 void setup() {
@@ -8,6 +11,8 @@ void setup() {
 }
 
 void loop() { 
-    controller->run();
-    delay(5000);
+    if (millis() - last >= LOOP_INTERVAL) {
+        controller->run();
+        last = millis();
+    }
 }

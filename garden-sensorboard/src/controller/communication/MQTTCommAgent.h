@@ -1,18 +1,18 @@
-#ifndef __MQTT_COMM__
-#define __MQTT_COMM__
+#ifndef __MQTT_AGENT__
+#define __MQTT_AGENT__
 
 #include <WiFi.h>
 #include <PubSubClient.h>
-#include "CommComponent.h"
+#include "CommAgent.h"
 
-class MQTTCommComponent: public CommunicationComponent {
+/**
+ * @brief The concrete MQTT agent.
+ */
+class MQTTCommAgent: public CommAgent {
 
 public:
-    MQTTCommComponent(const char* ssid, const char* pwd, const char* serverAddress, const char* topic);
-
-    /**
-     * [NOTE] This is blocking!
-     */
+    MQTTCommAgent(const char* ssid, const char* pwd, const char* serverAddress, 
+        const char* topic, const int port);
     void estabilishCommChannel() override;
     bool sendData(const char* msg) override;
 
@@ -23,6 +23,7 @@ private:
     const char* pwd;
     const char* serverAddress;
     const char* topic;
+    const int port;
     void connectToWifi();
     void connectToMQTTServer();
 

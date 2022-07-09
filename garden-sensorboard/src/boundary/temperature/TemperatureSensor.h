@@ -1,11 +1,18 @@
 #ifndef __TEMPERATURE_SENSOR__
 #define __TEMPERATURE_SENSOR__
 
-class TemperatureSensor 
-{
+/**
+ * @brief An "interface" modeling a temperature sensor. 
+ */
+class TemperatureSensor {
 
 public:
-    virtual float getValue() = 0;
+    /**
+     * @brief Get the temperature.
+     * @return float the temperature, measured in Celsius degrees.
+     */
+    virtual float readValue() = 0;
+
 };
 
 #endif

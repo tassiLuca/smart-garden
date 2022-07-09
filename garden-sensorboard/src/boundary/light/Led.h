@@ -5,13 +5,13 @@
 
 class Led: public Light {
 
-private:
-    int pin;
-
 public:
     Led(const int pinLed);
     void switchOn() override;
     void switchOff() override;
+
+private:
+    int pin;
 
 };
 
