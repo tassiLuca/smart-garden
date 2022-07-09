@@ -77,12 +77,12 @@ public class MainActivity extends AppCompatActivity {
         });
         findViewById(R.id.ledSwitch1).setOnClickListener(l -> onSwitchPressed(R.id.ledSwitch1, "LED1"));
         findViewById(R.id.ledSwitch2).setOnClickListener(l -> onSwitchPressed(R.id.ledSwitch2, "LED2"));
-        findViewById(R.id.btnIncCounterLed3).setOnClickListener(l -> onBtnPressed(R.id.counterLed3, "LED3", c -> c+1));
-        findViewById(R.id.btnDecCounterLed3).setOnClickListener(l -> onBtnPressed(R.id.counterLed3, "LED3", c -> c-1));
-        findViewById(R.id.btnIncCounterLed4).setOnClickListener(l -> onBtnPressed(R.id.counterLed4, "LED4", c -> c+1));
-        findViewById(R.id.btnDecCounterLed4).setOnClickListener(l -> onBtnPressed(R.id.counterLed4, "LED4", c -> c-1));
-        findViewById(R.id.btnIncIrrigationSpeed).setOnClickListener(l -> onBtnPressed(R.id.countIrrigation, "IRRIGATION", c -> c+1));
-        findViewById(R.id.btnDecIrrigationSpeed).setOnClickListener(l -> onBtnPressed(R.id.countIrrigation, "IRRIGATION", c -> c-1));
+        findViewById(R.id.btnIncCounterLed3).setOnClickListener(l -> onBtnPressed(R.id.counterLed3, "LED3", c -> c+5));
+        findViewById(R.id.btnDecCounterLed3).setOnClickListener(l -> onBtnPressed(R.id.counterLed3, "LED3", c -> c-5));
+        findViewById(R.id.btnIncCounterLed4).setOnClickListener(l -> onBtnPressed(R.id.counterLed4, "LED4", c -> c+5));
+        findViewById(R.id.btnDecCounterLed4).setOnClickListener(l -> onBtnPressed(R.id.counterLed4, "LED4", c -> c-5));
+        findViewById(R.id.btnIncIrrigationSpeed).setOnClickListener(l -> onBtnPressed(R.id.countIrrigation, "IRR-SPEED", c -> c+1));
+        findViewById(R.id.btnDecIrrigationSpeed).setOnClickListener(l -> onBtnPressed(R.id.countIrrigation, "IRR-SPEED", c -> c-1));
         findViewById(R.id.switchIrrigation).setOnClickListener(l -> onSwitchPressed(R.id.switchIrrigation, "IRRIGATION"));
     }
 
@@ -103,13 +103,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void sendData(final String desc, final Object obj) {
-        JSONObject json = new JSONObject();
-        try {
-            json.put(desc, obj);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        btChannel.sendMessage(json.toString());
+        final String msg = desc + ":" + obj;
+        btChannel.sendMessage(msg);
     }
 
     private void resetCounters() {
@@ -166,6 +161,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onMessageSent(String sentMessage) { }
                 });
+
+                btChannel.sendMessage("SET-STATE:MANUAL");
             }
 
             @Override

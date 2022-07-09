@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="bt-client/src/main/res/drawable/connect.xml" value="0.389" />
+        <entry key="bt-client/src/main/res/drawable/test.xml" value="0.389" />
         <entry key="bt-client/src/main/res/layout/activity_main.xml" value="0.34045286316802537" />
-        <entry key="bt-client/src/main/res/layout/appbar.xml" value="0.1" />
+        <entry key="bt-client/src/main/res/layout/appbar.xml" value="0.3415985107421875" />
         <entry key="bt-client/src/main/res/layout/topbar.xml" value="0.24954710144927536" />
         <entry key="bt-client/src/main/res/menu/top_app_bar.xml" value="0.335" />
       </map>
