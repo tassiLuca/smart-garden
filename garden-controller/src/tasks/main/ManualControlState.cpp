@@ -33,5 +33,10 @@ void ManualControlState::manualControl(String obj, String value) {
         getTask()->Garden()->getLightingSystem()->setL3(value.toInt());
     } else if (obj == "LED4") {
         getTask()->Garden()->getLightingSystem()->setL4(value.toInt());
+    } else if (obj == "IRR-SPEED") {
+        getTask()->Garden()->getIrrigationSystem()->setIrrigationSpeed(value.toInt());
+    } else if (obj == "IRRIGATION") {
+        if (value == "1") getTask()->Garden()->getIrrigationSystem()->setState(ON);
+        else getTask()->Garden()->getIrrigationSystem()->setState(OFF);        
     }
 }

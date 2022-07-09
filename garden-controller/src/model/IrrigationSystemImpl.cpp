@@ -8,7 +8,7 @@ IrrigationSystemImpl::IrrigationSystemImpl(ServoMotor* servoMotor): servo(servoM
 
 void IrrigationSystemImpl::moveServo() {
     static int angle = 0;
-    if (angle == 180) { 
+    if (angle >= 180) { 
         angle = 0;
     }
     angle += speed;
