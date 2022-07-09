@@ -1,7 +1,6 @@
 package it.unibo.esiot.smartgarden.service.model;
 
 public class DataPointImpl implements DataPoint {
-
     private final String timestamp;
     private final int temperature;
     private final int lightness;

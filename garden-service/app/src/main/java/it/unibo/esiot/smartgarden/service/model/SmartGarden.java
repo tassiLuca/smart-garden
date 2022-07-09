@@ -2,6 +2,9 @@ package it.unibo.esiot.smartgarden.service.model;
 
 import java.util.List;
 
+/**
+ * A simple interface representing the domain.
+ */
 public interface SmartGarden {
 
     enum GardenState {

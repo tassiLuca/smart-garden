@@ -9,6 +9,10 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
+    // Adds tasks to export a runnable jar.
+    // In order to create it, launch the "shadowJar" task.
+    // The runnable jar will be found in build/libs/projectname-all.jar
+    id("com.github.johnrengelman.shadow") version "7.0.0"
 }
 
 repositories {

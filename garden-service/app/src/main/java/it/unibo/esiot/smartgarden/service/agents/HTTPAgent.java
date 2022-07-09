@@ -16,7 +16,6 @@ public class HTTPAgent extends AbstractVerticle {
 
 	private static final String PATH = "/api/data";
 	private final int port;
-
 	private final SmartGarden garden;
 
 	public HTTPAgent(final int port, final SmartGarden garden) {

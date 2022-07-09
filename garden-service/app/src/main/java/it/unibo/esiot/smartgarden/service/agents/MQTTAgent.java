@@ -21,7 +21,7 @@ public class MQTTAgent extends AbstractVerticle {
 
 	private final SmartGarden garden;
 	
-	public MQTTAgent(CommChannel channel, SmartGarden garden) {
+	public MQTTAgent(final CommChannel channel, final SmartGarden garden) {
 		this.channel = channel;
 		this.garden = garden;
 	}
@@ -42,18 +42,6 @@ public class MQTTAgent extends AbstractVerticle {
 		storeDataPoint(msg);
 		log("Sending to Arduino the data");
 		channel.sendMsg(receivedMsg);
-		log("Waiting response from Arduino");
-		try {
-			final var res = channel.receiveMsg();
-			log("Received: " + res);
-			this.garden.changeState(
-					res.equals("AUTO") ? SmartGarden.GardenState.AUTO :
-							res.equals("MANUAL") ? SmartGarden.GardenState.MANUAL : SmartGarden.GardenState.ALARM
-			);
-		} catch (InterruptedException e) {
-			log("No response from Arduino...");
-		}
-		log("-------------------------------");
 	}
 
 	private void storeDataPoint(final MqttPublishMessage msg) {

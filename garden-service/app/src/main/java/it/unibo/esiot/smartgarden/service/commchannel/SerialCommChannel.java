@@ -35,7 +35,7 @@ public class SerialCommChannel implements CommChannel, SerialPortEventListener {
 			synchronized (serialPort) {
 				serialPort.writeBytes(bytes);
 			}
-		} catch(Exception ex){
+		} catch(SerialPortException ex){
 			ex.printStackTrace();
 		}
 	}
@@ -60,11 +60,10 @@ public class SerialCommChannel implements CommChannel, SerialPortEventListener {
 				serialPort.removeEventListener();
 				serialPort.closePort();
 			}
-		} catch (Exception ex) {
+		} catch (SerialPortException ex) {
 			ex.printStackTrace();
 		}
 	}
-
 
 	public void serialEvent(SerialPortEvent event) {
 		/* if there are bytes received in the input buffer */
@@ -87,7 +86,7 @@ public class SerialCommChannel implements CommChannel, SerialPortEventListener {
 						goAhead = false;
 					}
 				}
-            } catch (Exception ex) {
+            } catch (SerialPortException | InterruptedException ex) {
 				ex.printStackTrace();
                 System.out.println("Error in receiving string from COM-port: " + ex);
             }
