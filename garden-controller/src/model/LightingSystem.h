@@ -4,6 +4,7 @@
 class LightingSystem {
 
 public:
+
     virtual void activate(const int brightnessIntensity) = 0;
 
     virtual void deactivate() = 0;

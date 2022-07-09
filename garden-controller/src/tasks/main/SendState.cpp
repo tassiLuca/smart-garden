@@ -1,8 +1,8 @@
-#include "SendDataState.h"
+#include "SendState.h"
 #include "../../comm/SerialMsgService.h"
 #include "IdleState.h"
 
-void SendDataState::handle() {
+void SendState::handle() {
     String currentStateDescription;
     auto currentState = getTask()->Garden()->getState();
     switch (currentState) {

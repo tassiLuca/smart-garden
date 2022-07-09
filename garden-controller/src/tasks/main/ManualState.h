@@ -1,10 +1,10 @@
-#ifndef __MANUAL_CONTROL_STATE__
-#define __MANUAL_CONTROL_STATE__
+#ifndef __MANUAL_STATE__
+#define __MANUAL_STATE__
 
 #include <Arduino.h>
 #include "../Task.h"
 
-class ManualControlState: public State {
+class ManualState: public State {
 
 public:
     void handle() override;

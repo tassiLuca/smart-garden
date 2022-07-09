@@ -1,30 +1,26 @@
-#include "ManualControlState.h"
-#include "SendDataState.h"
+#include "ManualState.h"
+#include "SendState.h"
 #include "../../comm/BluetoothMsgService.h"
 
-void ManualControlState::handle() {
+void ManualState::handle() {
     Msg* msg = BTMsgService.receiveMsg();
     int index = msg->getContent().indexOf(":");
     String obj = msg->getContent().substring(0, index);
     String value = msg->getContent().substring(index+1);
-    delete msg;
-
+    delete msg; // very important!
     if (obj == "SET-STATE" && value == "MANUAL") {
-        digitalWrite(2, HIGH);
         getTask()->Garden()->setState(MANUAL);
         getTask()->Garden()->getLightingSystem()->deactivate();
     } else if (obj == "SET-STATE" && value == "AUTO") {
-        digitalWrite(2, LOW);
         getTask()->Garden()->setState(AUTO);
         getTask()->Garden()->getLightingSystem()->deactivate();
     } else if (getTask()->Garden()->getState() == MANUAL) {
         manualControl(obj, value);
     }
-
-    getTask()->stateTransition(new SendDataState());
+    getTask()->stateTransition(new SendState());
 }
 
-void ManualControlState::manualControl(String obj, String value) {
+void ManualState::manualControl(String obj, String value) {
     if (obj == "LED1") {
         getTask()->Garden()->getLightingSystem()->setL1(value == "1" ? true : false);
     } else if (obj == "LED2") {

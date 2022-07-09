@@ -3,14 +3,14 @@
 
 #include "../Task.h"
 
-class ActiveState: public State {
+class OpenedState: public State {
 
 public:
-    ActiveState();
+    OpenedState();
     void handle() override;
 
 private:
-    unsigned long activationTime;
+    unsigned long lastOpeningTime;
 
 };
 

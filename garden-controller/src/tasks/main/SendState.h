@@ -3,7 +3,7 @@
 
 #include "../Task.h"
 
-class SendDataState: public State {
+class SendState: public State {
 
     void handle() override;
 

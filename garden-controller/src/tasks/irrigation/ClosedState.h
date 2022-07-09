@@ -3,7 +3,7 @@
 
 #include "../Task.h"
 
-class PauseState: public State {
+class ClosedState: public State {
 
 public:
     void handle() override;

@@ -1,37 +1,37 @@
-#include "AutoControlState.h"
 #include <ArduinoJson.h>
+#include "AutoState.h"
+#include "SendState.h"
 #include "../../comm/SerialMsgService.h"
-#include "SendDataState.h"
-#include "IdleState.h"
 
 #define ALARM_THRESHOLD 5
 #define LIGHTS_ACTIVATION_THRESHOLD 5 
 #define IRRIGATION_ACTIVATION_THRESHOLD 2
 
-void AutoControlState::handle() {
+void AutoState::handle() {
     StaticJsonDocument<256> doc;
     Msg* msg = MsgService.receiveMsg();
     deserializeJson(doc, msg->getContent());
     int temperature = doc["temperature"];
     int lightness = doc["lightness"];
-    delete msg;
-    // sistema di allarme
+    delete msg; // really important!
     if (temperature >= ALARM_THRESHOLD) {
         getTask()->Garden()->setState(ALARM);
     } else {
-        setupSystem(temperature, lightness);
+        setupLightnessSystem(lightness);
+        setupIrrigationSystem(lightness, temperature);
     }
-    this->getTask()->stateTransition(new SendDataState());
+    this->getTask()->stateTransition(new SendState());
 }
 
-void AutoControlState::setupSystem(int temperature, int lightness) {
-    // accensione luci
+void AutoState::setupLightnessSystem(int lightness) {
     if (lightness < LIGHTS_ACTIVATION_THRESHOLD) {
         getTask()->Garden()->getLightingSystem()->activate(lightness);
     } else {
         getTask()->Garden()->getLightingSystem()->deactivate();
     }
-    // accensione sistema irrigazione
+}
+
+void AutoState::setupIrrigationSystem(int lightness, int temperature) {
     if (lightness < IRRIGATION_ACTIVATION_THRESHOLD) {
         getTask()->Garden()->getIrrigationSystem()->setState(ON);
         getTask()->Garden()->getIrrigationSystem()->setIrrigationSpeed(temperature);
