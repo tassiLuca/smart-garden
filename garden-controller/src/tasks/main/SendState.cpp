@@ -1,5 +1,6 @@
 #include "SendState.h"
 #include "../../comm/SerialMsgService.h"
+#include "../../comm/BluetoothMsgService.h"
 #include "IdleState.h"
 
 void SendState::handle() {
@@ -19,5 +20,6 @@ void SendState::handle() {
             break;
     }
     MsgService.sendMsg(currentStateDescription);
+    BTMsgService.sendMsg(currentStateDescription);
     getTask()->stateTransition(new IdleState());
 }
