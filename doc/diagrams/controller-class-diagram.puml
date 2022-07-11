@@ -1,0 +1,96 @@
+@startuml controller-class-diagram
+
+note right of Scheduler::schedule
+    foreach task
+        if (task must be executed)
+            task.execute()
+endnote
+interface Scheduler {
+    + addTask(task: Task*): bool
+    + schedule()
+}
+
+interface Task {
+    + init(initialState: State*)
+    + execute()
+    + stateTransition(nextState: State*)
+    + updateAndCheckTime(basePeriod: int)
+    + Garden(): SmartGarden*
+}
+
+Scheduler *-left- Task
+
+note right of BaseTask::execute
+    currentState.handle()
+endnote
+abstract class BaseTask implements Task {
+    - currentState: State*
+    # execute()
+}
+
+class MainTask extends BaseTask 
+class IrrigationTask extends BaseTask
+
+note bottom of State
+State Pattern [GoF]: all the 
+classes extends this class and 
+defines the handle function.
+endnote
+interface State {
+    + handle()
+    + setTask(task: Task*)
+    + getTask(): Task*
+}
+
+Task *-left- State
+State *-right- Task
+
+enum GardenState {
+    AUTO,
+    MANUAL,
+    ALARM
+}
+
+interface SmartGarden {
+    + getState(): GardenState
+    + setState(newState: GardenState)
+    + getLightingSystem(): LightingSystem*
+    + getIrrigationSystem(): IrrigationSystem*
+}
+
+SmartGarden o-right- GardenState
+SmartGarden *-- Task
+
+interface IrrigationSystem {
+    + irrigate()
+    + stop()
+    + setIrrigationSpeed(speed: int) 
+    + getState(): OnOffState
+    + setState(newState: OnOffState)
+}
+
+interface LightingSystem {
+    + activate()
+    + deactivate()
+}
+
+IrrigationSystem --* SmartGarden
+LightingSystem -right-* SmartGarden
+
+interface Light {
+    + switchOn()
+    + switchOn(intensity: int)
+    + switchOff()
+}
+
+Light *-- LightingSystem
+
+interface ServoMotor {
+    + on()
+    + setPosition(angle: int)
+    + off()
+}
+
+IrrigationSystem *-right- ServoMotor
+
+@enduml

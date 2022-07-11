@@ -1,0 +1,36 @@
+@startuml sensorboard-class-diagram
+
+interface MainController {
+    + run()
+}
+
+class GardenController implements MainController
+
+interface CommAgent {
+    + establishCommChannel()
+    + sendData(msg: const char*)
+    + receiveData(): const char*
+}
+
+class MQTTCommAgent implements CommAgent
+
+GardenController *-right- MQTTCommAgent
+
+interface Light {
+    + switchOn()
+    + switchOff()
+}
+
+interface LightSensor {
+    + readValue(): int
+}
+
+interface TemperatureSensor {
+    + readValue(): int 
+}
+
+Light -right-* GardenController
+LightSensor -up-* GardenController
+TemperatureSensor -up-* GardenController
+
+@enduml
