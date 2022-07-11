@@ -13,7 +13,7 @@ class MQTTCommAgent: public CommAgent {
 public:
     MQTTCommAgent(const char* ssid, const char* pwd, const char* serverAddress, 
         const char* topic, const int port);
-    void estabilishCommChannel() override;
+    void establishCommChannel() override;
     bool sendData(const char* msg) override;
 
 private:

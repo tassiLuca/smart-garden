@@ -13,7 +13,7 @@ public:
      * @note This is blocking, i.e. until the connection has been 
      * established this function won't return the control.
      */
-    virtual void estabilishCommChannel() = 0;
+    virtual void establishCommChannel() = 0;
 
     /**
      * @brief Send the data over the communication channel.

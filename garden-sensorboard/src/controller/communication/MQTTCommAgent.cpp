@@ -9,7 +9,7 @@ MQTTCommAgent::MQTTCommAgent(const char* ssid, const char* pwd,
     const char* serverAddress, const char* topic, const int port) 
     : ssid(ssid), pwd(pwd), serverAddress(serverAddress), topic(topic), port(port) { }
 
-void MQTTCommAgent::estabilishCommChannel() {
+void MQTTCommAgent::establishCommChannel() {
     connectToWifi();
     connectToMQTTServer();
 }

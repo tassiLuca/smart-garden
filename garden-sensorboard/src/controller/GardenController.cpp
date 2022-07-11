@@ -14,7 +14,7 @@
 
 GardenController::GardenController() {
     comm = new MQTTCommAgent(SSID, PWD, MQTT_SERVER, TOPIC, MQTT_PORT);
-    comm->estabilishCommChannel();
+    comm->establishCommChannel();
     temperatureSensor = new TemperatureSensorImpl(TEMPERATURE_SENSOR_PIN);
     lightSensor = new Photoresistor(PHOTORESISTOR_PIN);
     led = new Led(PIN_LED);
