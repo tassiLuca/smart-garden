@@ -1,8 +1,8 @@
 #ifndef __SETUP_H__
 #define __SETUP_H__
 
-#define SSID "TIM-31170947"
-#define PWD "m0d3mT4ss1n4r1"
+#define SSID "Plutino"
+#define PWD "provafallimentare"
 #define TOPIC "esiot-smart-garden"
 #define MQTT_SERVER "broker.mqtt-dashboard.com"
 #define MQTT_PORT 1883
