@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Smart Garden</string>
+    <string name="notifications">"Notifications "</string>
+    <string name="light_system">Light System</string>
+    <string name="irrigation_system">Irrigation System</string>
+    <string name="connect_bt">Connect to Bluetooth</string>
+    <string name="led1">Led 1</string>
+    <string name="led2">Led 2</string>
+    <string name="increase">+</string>
+    <string name="decrease">-</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="manual">Manual Control</string>
+    <string name="auto">Auto Control</string>
+    <string name="irrigation">Irrigation</string>
+    <string name="counter">0</string>
+    <string name="alert">Disable Alert</string>
+    <string name="defaultState">Not Connected!</string>
+    <string name="currentStateLbl">Current State:</string>
+</resources>

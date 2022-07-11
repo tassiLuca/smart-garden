@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/topbar" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/currentStateLbl"
+            android:gravity="center"
+            android:layout_marginTop="5dp" />
+
+        <TextView
+            android:id="@+id/gardenState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/defaultState"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textSize="20sp"
+            app:textAllCaps="true"
+            android:layout_marginBottom="5dp" />
+
+        <LinearLayout
+            android:id="@+id/manualControlLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/manualControlBtn"
+                android:layout_width="match_parent"
+                android:layout_height="69dp"
+                android:text="@string/manual"
+                app:icon="@drawable/ic_baseline_back_hand_24"
+                app:iconGravity="textStart" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/lightSystemTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15sp"
+            android:text="@string/light_system"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/lightSystemDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15sp"
+            android:layout_marginRight="15sp"
+            android:background="?android:attr/listDivider" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/ledSwitch1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15sp"
+            android:minHeight="48dp"
+            android:text="@string/led1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/ledSwitch2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15sp"
+            android:minHeight="48dp"
+            android:text="@string/led2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ledSwitch1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/ledSwitch2">
+
+            <LinearLayout
+                android:id="@+id/led3Box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="40dp"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/led4Box"
+                app:layout_constraintTop_toBottomOf="@+id/ledSwitch2">
+
+                <Button
+                    android:id="@+id/incLed3Btn"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:gravity="center"
+                    android:text="@string/increase"
+                    app:icon="@drawable/ic_baseline_add_24"
+                    tools:ignore="DuplicateSpeakableTextCheck" />
+
+                <TextView
+                    android:id="@+id/counterLed3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/counter"
+                    android:textAlignment="center"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/decLed3Btn"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:text="@string/decrease"
+                    app:icon="@drawable/ic_baseline_remove_24"
+                    tools:ignore="DuplicateSpeakableTextCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/led4Box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="40dp"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/incLed4Btn"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:text="@string/increase"
+                    app:icon="@drawable/ic_baseline_add_24" />
+
+                <TextView
+                    android:id="@+id/counterLed4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/counter"
+                    android:textAlignment="center"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/decLed4Btn"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:text="@string/decrease"
+                    app:icon="@drawable/ic_baseline_remove_24" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/lightSystemTextView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15sp"
+            android:text="@string/irrigation_system"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/lightSystemDivider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="99dp">
+
+            <Button
+                android:id="@+id/incIrrigationBtn"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginEnd="28dp"
+                android:text="@string/increase"
+                app:icon="@drawable/ic_baseline_add_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.51" />
+
+            <TextView
+                android:id="@+id/counterIrrigation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/counter"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/incIrrigationBtn"
+                app:layout_constraintStart_toEndOf="@+id/decIrrigationBtn"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/decIrrigationBtn"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginEnd="148dp"
+                android:text="@string/decrease"
+                app:icon="@drawable/ic_baseline_remove_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.894"
+                app:layout_constraintStart_toEndOf="@+id/irrigationSwitch"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.51" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/irrigationSwitch"
+                android:layout_width="138dp"
+                android:layout_height="52dp"
+                android:layout_margin="15sp"
+                android:minHeight="48dp"
+                android:text="@string/irrigation"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/incIrrigationBtn"
+                app:layout_constraintHorizontal_bias="0.126"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.468" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
