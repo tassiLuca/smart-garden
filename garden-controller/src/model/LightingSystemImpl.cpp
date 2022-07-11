@@ -51,5 +51,5 @@ void LightingSystemImpl::setL3(int lightness) {
 }
 
 void LightingSystemImpl::setL4(int lightness) {
-    l3->switchOn(lightness);
+    l4->switchOn(lightness);
 }
