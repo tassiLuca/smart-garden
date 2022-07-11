@@ -5,6 +5,7 @@
 #include "../uilities/Logger.h"
 #include "../boundary/lightSensor/Photoresistor.h"
 #include "../boundary/temperature/TemperatureSensorImpl.h"
+#include "../boundary/light/Led.h"
 
 #define MAPPED_TEMPERATURE_LEVELS 5
 #define MAPPED_LIGHTNESS_LEVELS 8
@@ -16,6 +17,8 @@ GardenController::GardenController() {
     comm->estabilishCommChannel();
     temperatureSensor = new TemperatureSensorImpl(TEMPERATURE_SENSOR_PIN);
     lightSensor = new Photoresistor(PHOTORESISTOR_PIN);
+    led = new Led(PIN_LED);
+    led->switchOn();
 }
 
 void GardenController::run() {

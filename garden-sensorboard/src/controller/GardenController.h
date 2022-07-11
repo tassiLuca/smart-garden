@@ -6,6 +6,7 @@
 #include "./communication/CommAgent.h"
 #include "../boundary/lightSensor/LightSensor.h"
 #include "../boundary/temperature/TemperatureSensor.h"
+#include "../boundary/light/Light.h"
 
 class GardenController: public MainController {
 
@@ -20,6 +21,7 @@ private:
     void sendData(const char* data);
     LightSensor* lightSensor;
     TemperatureSensor* temperatureSensor;
+    Light* led;
 
 };
 
