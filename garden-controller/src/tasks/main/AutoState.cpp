@@ -15,6 +15,7 @@ void AutoState::handle() {
     int lightness = doc["lightness"];
     delete msg; // really important!
     if (temperature >= ALARM_THRESHOLD) {
+        getTask()->Garden()->getIrrigationSystem()->setState(OFF);
         getTask()->Garden()->setState(ALARM);
     } else {
         setupLightnessSystem(lightness);
