@@ -15,7 +15,7 @@ The Garden Sensor Board (ESP) - as described in details in the requirements - is
 
 Below the schema of the circuit (made with Tinkercad):
 
-![Sensorboard circuit schema](./schemas/sensorboard.png)
+<img src="./schemas/sensorboard.png" alt="Sensorboard circuit schema" height="400em"/>
 
 The software has been conceived as follows and presented in the following UML schema:
 - `CommAgent` is the agent, i.e. the active component, which exposes a general API in order to takes care of all comunication between the board and the outside world. This interface is implemented by a concrete `MQTTCommAgent` which encapsulate all the logic for connecting, sending and receiving messages through MQTT. This design follows the OCP principle: if it were necessary to communicate also via HTTP, it would be possible to simply add a new concrete implementation of the `CommAgent`.
@@ -56,10 +56,9 @@ The OO organization of the code is described from the following UML diagram:
 ### Garden Mobile App
 The mobile app makes it possible to manually control the irrigation system and lighting one interacting with the garden controller via Bluetooth.
 
-![Mobile app](./img/garden-app.png)
+<img src="./img/garden-app.png" alt="Mobile app" height="600em"/>
 
 ### Garden Dashboard
 It is a simply html page with linked a JS script which periodically sends an ajax `GET` request to the service to retrieve the last set of data (in Json format) and display them in a chart line, in addition to the garden state info.
 
-![Dashboard](./img/garden-dashboard.png)
-
+<img src="./img/garden-dashboard.png" alt="Dashboard" height="500em"/>
