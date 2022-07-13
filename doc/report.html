@@ -376,7 +376,7 @@ code {
 <h3 id="garden-sensor-board">Garden Sensor Board</h3>
 <p>The Garden Sensor Board (ESP) - as described in details in the requirements - is the component which monitors the state of the garden, reading and sending, through MQTT, the sensor data to the garden service app.</p>
 <p>Below the schema of the circuit (made with Tinkercad):</p>
-<img src="./schemas/sensorboard.png" alt="Sensorboard circuit schema" height="400em"/>
+<img src="./schemas/sensorboard.png" alt="Sensorboard circuit schema" style="max-width:600px"/>
 <p>The software has been conceived as follows and presented in the following UML schema:</p>
 <ul>
 <li><code>CommAgent</code> is the agent, i.e. the active component, which exposes a general API in order to takes care of all comunication between the board and the outside world. This interface is implemented by a concrete <code>MQTTCommAgent</code> which encapsulate all the logic for connecting, sending and receiving messages through MQTT. This design follows the OCP principle: if it were necessary to communicate also via HTTP, it would be possible to simply add a new concrete implementation of the <code>CommAgent</code>.</li>
@@ -386,7 +386,9 @@ code {
 <h3 id="garden-service">Garden Service</h3>
 <p>The garden service is the subsystem acting like a bridge between all other subsystems: it receives via MQTT the sensor data measured by the garden sensorboard and forward them through the serial line to the garden controller; moreover it store them in order to update the the garden dashboard when a new <code>GET</code> request has been performed.</p>
 <h3 id="garden-controller">Garden Controller</h3>
-<p>The garden controller is the embedded sub-system which controls the irrigation system and the lighting one.</p>
+<p>The garden controller is the embedded sub-system which controls the irrigation system (simulated by means of a servo motor) and the lighting one (simulated by four leds).</p>
+<p>Below the schema of the circuit (made with Tinkercad):</p>
+<img src="./schemas/controllerboard.png" alt="Sensorboard circuit schema" style="max-height:500px"/>
 <p>It has been conceived using a <strong>tasks-based architecture</strong> and <strong>synchronous Finite State Machines</strong> with a <strong>fully-static scheduler</strong>. For this purpose have been developed 2 different tasks, with different level of abstractions: a <strong>Main Task</strong> and <strong>Dispensing Task</strong>.</p>
 <p>The <strong>Main Task</strong> is the core task of the (sub-)system. It checks whether a new data has arrived, both via Serial line from the garden service or via bluetooth from the Android App.
 In both cases, when such an event happens, it reads the data and set up the system accordingly to them.
@@ -402,10 +404,10 @@ It's executed every 100ms.</p>
 <p><img src="./diagrams/out/controller-class-diagram.svg" alt="Garden Controller class diagram"></p>
 <h3 id="garden-mobile-app">Garden Mobile App</h3>
 <p>The mobile app makes it possible to manually control the irrigation system and lighting one interacting with the garden controller via Bluetooth.</p>
-<img src="./img/garden-app.png" alt="Mobile app" height="600em"/>
+<img src="./img/garden-app.png" alt="Mobile app" style="max-width:280px"/>
 <h3 id="garden-dashboard">Garden Dashboard</h3>
 <p>It is a simply html page with linked a JS script which periodically sends an ajax <code>GET</code> request to the service to retrieve the last set of data (in Json format) and display them in a chart line, in addition to the garden state info.</p>
-<img src="./img/garden-dashboard.png" alt="Dashboard" height="500em"/>
+<img src="./img/garden-dashboard.png" alt="Dashboard" style="max-height:500px"/>
 
 </body>
 </html>

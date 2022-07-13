@@ -15,7 +15,7 @@ The Garden Sensor Board (ESP) - as described in details in the requirements - is
 
 Below the schema of the circuit (made with Tinkercad):
 
-<img src="./schemas/sensorboard.png" alt="Sensorboard circuit schema" height="400em"/>
+<img src="./schemas/sensorboard.png" alt="Sensorboard circuit schema" style="max-width:600px"/>
 
 The software has been conceived as follows and presented in the following UML schema:
 - `CommAgent` is the agent, i.e. the active component, which exposes a general API in order to takes care of all comunication between the board and the outside world. This interface is implemented by a concrete `MQTTCommAgent` which encapsulate all the logic for connecting, sending and receiving messages through MQTT. This design follows the OCP principle: if it were necessary to communicate also via HTTP, it would be possible to simply add a new concrete implementation of the `CommAgent`.
@@ -28,7 +28,11 @@ The garden service is the subsystem acting like a bridge between all other subsy
 
 
 ### Garden Controller
-The garden controller is the embedded sub-system which controls the irrigation system and the lighting one. 
+The garden controller is the embedded sub-system which controls the irrigation system (simulated by means of a servo motor) and the lighting one (simulated by four leds). 
+
+Below the schema of the circuit (made with Tinkercad):
+
+<img src="./schemas/controllerboard.png" alt="Sensorboard circuit schema" style="max-height:500px"/>
 
 It has been conceived using a **tasks-based architecture** and **synchronous Finite State Machines** with a **fully-static scheduler**. For this purpose have been developed 2 different tasks, with different level of abstractions: a **Main Task** and **Dispensing Task**.
 
@@ -56,9 +60,9 @@ The OO organization of the code is described from the following UML diagram:
 ### Garden Mobile App
 The mobile app makes it possible to manually control the irrigation system and lighting one interacting with the garden controller via Bluetooth.
 
-<img src="./img/garden-app.png" alt="Mobile app" height="600em"/>
+<img src="./img/garden-app.png" alt="Mobile app" style="max-width:280px"/>
 
 ### Garden Dashboard
 It is a simply html page with linked a JS script which periodically sends an ajax `GET` request to the service to retrieve the last set of data (in Json format) and display them in a chart line, in addition to the garden state info.
 
-<img src="./img/garden-dashboard.png" alt="Dashboard" height="500em"/>
+<img src="./img/garden-dashboard.png" alt="Dashboard" style="max-height:500px"/>
