@@ -28,7 +28,6 @@ with the Dashboard (frontend/PC)
     - front end to visualise and track the state of the garden
     - it interacts with the Garden Service to get the data
 
-More details are available [here](./doc/Assignment#3-requirements.pdf).
+More details are available [here](./doc/Assignment%233-requirements.pdf).
 
-Refers to the [report](./doc/report.pdf) for a short video demo, the breadboard circuits and the analysis of the system from a 
-software point of view (with UML states and class charts).
+Refers to the [report](./doc/report.pdf) for a short video demo, the breadboard circuits and the analysis of the system from a software point of view (with UML states and class charts).

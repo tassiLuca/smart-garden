@@ -4,7 +4,7 @@
 This is a short report explaining the modeling choices made along the development process of this assignment.
 
 ## Requirements
-All the requirements of the system can be found [here](./Assignment#3-requirements.pdf).
+All the requirements of the system can be found [here](./Assignment%233-requirements.pdf).
 
 ## Demo
 [Here](https://liveunibo-my.sharepoint.com/:v:/g/personal/luca_tassinari10_studio_unibo_it/EX-Ig3bdpuNIk-vLeKruPyUBDPZfhHCChchlniSAcjICQQ?e=BxL0gP) a short video demonstrating the logic of the system (hosted on restricted Unibo account).
