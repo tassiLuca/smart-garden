@@ -377,29 +377,35 @@ code {
 <p>The Garden Sensor Board (ESP) - as described in details in the requirements - is the component which monitors the state of the garden, reading and sending, through MQTT, the sensor data to the garden service app.</p>
 <p>Below the schema of the circuit (made with Tinkercad):</p>
 <img src="./schemas/sensorboard.png" alt="Sensorboard circuit schema" style="max-width:600px"/>
-<p>The software has been conceived as follows and presented in the following UML schema:</p>
+<p>The software has been conceived as follows and is presented in the following UML schema:</p>
 <ul>
-<li><code>CommAgent</code> is the agent, i.e. the active component, which exposes a general API in order to takes care of all comunication between the board and the outside world. This interface is implemented by a concrete <code>MQTTCommAgent</code> which encapsulate all the logic for connecting, sending and receiving messages through MQTT. This design follows the OCP principle: if it were necessary to communicate also via HTTP, it would be possible to simply add a new concrete implementation of the <code>CommAgent</code>.</li>
-<li><code>MainController</code> is the controller of the board and exposes a <code>run()</code> method which is periodically called by the main. The concrete controller, the <code>GardenController</code>, foreach execution of the <code>run</code> method reads all the sensor status, serialize them inside a Json format, and delegates to the <code>MQTTCommAgent</code> to send the data.</li>
+<li><code>CommAgent</code> is the agent, i.e. the active component, which exposes a general API in order to takes care of all comunications between the board and the outside world. This interface is implemented by a concrete <code>MQTTCommAgent</code> which encapsulates all the logic for connecting, sending and receiving messages through MQTT. This design follows the OCP principle: if it were necessary to communicate also via HTTP, it would be possible to simply add a new concrete implementation of the <code>CommAgent</code>.</li>
+<li><code>MainController</code> is the controller of the board and exposes a <code>run()</code> method which is periodically called by the main. The concrete controller, the <code>GardenController</code>, for each execution of the <code>run</code> method reads all the sensor status, serializes them inside a Json format, and delegates the data sending to the <code>MQTTCommAgent</code>.</li>
 </ul>
 <p><img src="./diagrams/out/sensorboard-class-diagram.svg" alt="Garden sensorboard class diagram"></p>
 <h3 id="garden-service">Garden Service</h3>
-<p>The garden service is the subsystem acting like a bridge between all other subsystems: it receives via MQTT the sensor data measured by the garden sensorboard and forward them through the serial line to the garden controller; moreover it store them in order to update the the garden dashboard when a new <code>GET</code> request has been performed.</p>
+<p>The garden service is the subsystem acting like a bridge between all other subsystems: it receives via MQTT the sensor data measured by the garden sensor board and forwards them through the serial line to the garden controller; moreover, it stores them in order to update the garden dashboard when a new <code>GET</code> request has been performed.</p>
+<p>The main components of the subsystem are:</p>
+<ul>
+<li><code>HTTAgent</code>: active component handling HTTP requests (implemented in <a href="https://vertx.io/">Vert.x</a>);</li>
+<li><code>MQTTAgent</code>: active component handling MQTT communications (implemented in <a href="https://vertx.io/">Vert.x</a>);</li>
+<li><code>SerialListener</code>: component receiving messages sent on the serial line in order to update the state of the garden.</li>
+</ul>
 <h3 id="garden-controller">Garden Controller</h3>
-<p>The garden controller is the embedded sub-system which controls the irrigation system (simulated by means of a servo motor) and the lighting one (simulated by four leds).</p>
+<p>The garden controller is the embedded subsystem which controls the irrigation system (simulated by means of a servo motor) and the lighting one (simulated by four LEDs).</p>
 <p>Below the schema of the circuit (made with Tinkercad):</p>
 <img src="./schemas/controllerboard.png" alt="Sensorboard circuit schema" style="max-height:500px"/>
-<p>It has been conceived using a <strong>tasks-based architecture</strong> and <strong>synchronous Finite State Machines</strong> with a <strong>fully-static scheduler</strong>. For this purpose have been developed 2 different tasks, with different level of abstractions: a <strong>Main Task</strong> and <strong>Dispensing Task</strong>.</p>
-<p>The <strong>Main Task</strong> is the core task of the (sub-)system. It checks whether a new data has arrived, both via Serial line from the garden service or via bluetooth from the Android App.
+<p>It has been conceived using a <strong>tasks-based architecture</strong> and <strong>synchronous Finite State Machines</strong> with a <strong>fully-static scheduler</strong>. For this purpose have developed 2 different tasks, with different levels of abstraction: a <strong>Main Task</strong> and <strong>Irrigation Task</strong>.</p>
+<p>The <strong>Main Task</strong> is the core task of the (sub-)system. It checks whether new data has arrived, both via the Serial line from the garden service or via bluetooth from the Android App.
 In both cases, when such an event happens, it reads the data and set up the system accordingly to them.
-Finally, it sends through the Serial line and blueetooth the new state of the garden in order to propagate the state info in the other sub-systems.</p>
+Finally, it sends through the Serial line and blueetooth the new state of the garden in order to propagate the state info in the other subsystems.</p>
 <p>This task is executed every 500ms.</p>
 <p><img src="./diagrams/out/main-task-state-chart.svg" alt="Main task state chart"></p>
-<p>The <strong>Irrigation Task</strong> is the task which is responsible for the irrigation subsystem and is composed of only two states: <code>On</code> and <code>Off</code>.
+<p>The <strong>Irrigation Task</strong> is the task that is responsible for the irrigation subsystem and is composed of only two states: <code>On</code> and <code>Off</code>.
 It's executed every 100ms.</p>
 <p><img src="./diagrams/out/irrigation-task-state-chart.svg" alt="Irrigation task state chart"></p>
-<p><strong>[NOTE 1]</strong> the communication from the two tasks is achieved with a shared variable in which is stored the state of the irrigation system (in the source code this variable is encapsulated inside the <code>IrrigationSystem</code> class and exposed via a getter).</p>
-<p><strong>[NOTE 2]</strong> it could be implemented an another task which takes care of the lighting subsystem. However, for the actual requirements of the system, it's unnecessary (and would generate a lot of unnecessary boilerplate) because the (de)activation of the lighting subsytem is &quot;atomic&quot;: is instantly executed when a new data arrive, differently from the irrigation system which requires to be continuosly updated even when no data is coming.</p>
+<p><strong>[NOTE 1]</strong> the communication between the two tasks is achieved with a shared variable in which is stored the state of the irrigation system (in the source code this variable is encapsulated inside the <code>IrrigationSystem</code> class and exposed via a getter).</p>
+<p><strong>[NOTE 2]</strong> it could be implemented an another task which takes care of the lighting subsystem. However, for the actual requirements of the system, it's unnecessary (and would generate a lot of unnecessary boilerplate) because the (de)activation of the lighting subsystem is &quot;atomic&quot;: is instantly executed when new data arrive, differently from the irrigation system which requires to be continuously updated even when no data is coming.</p>
 <p>The OO organization of the code is described from the following UML diagram:</p>
 <p><img src="./diagrams/out/controller-class-diagram.svg" alt="Garden Controller class diagram"></p>
 <h3 id="garden-mobile-app">Garden Mobile App</h3>
